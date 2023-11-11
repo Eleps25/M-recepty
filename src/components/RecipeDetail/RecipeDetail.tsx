@@ -3,7 +3,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 
 export default function RecipeDetail() {
-  const [cookedNumber, setCookedNumber] = useState(0);
+  const [cookedNumber, setCookedNumber] = useState<number>(0);
   return (
     <div>
       <h1>Editace receptu</h1>
