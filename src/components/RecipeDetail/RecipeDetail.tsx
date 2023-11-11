@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 
@@ -22,6 +23,7 @@ const RecipeDetail: React.FC = () => {
       >
         Počet vaření +1
       </Button>
+      <Link to="/recipelist"><Button>Zpět</Button></Link>
     </div>
   );
 };

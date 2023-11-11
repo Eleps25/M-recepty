@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 
@@ -21,7 +22,7 @@ const Recipe: React.FC = () => {
           onChange={() => setIsFavourite(!isFavourite)}
         />
       </h2>
-      <Button>Detail</Button>
+      <Link to="/recipelist/1"><Button>Detail</Button></Link>
     </div>
   );
 };
