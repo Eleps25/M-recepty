@@ -1,6 +1,6 @@
-import Button from "react-bootstrap/Button"
+import Button from "react-bootstrap/Button";
 
-export default function RecipeEdit() {
+const RecipeEdit: React.FC = () => {
   return (
     <div>
       <h1>Editace receptu</h1>
@@ -14,4 +14,6 @@ export default function RecipeEdit() {
       <Button variant="danger">Zpět</Button>
     </div>
   );
-}
+};
+
+export default RecipeEdit;

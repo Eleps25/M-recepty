@@ -1,7 +1,7 @@
 import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
 
-export default function RecipeList() {
+const RecipeList: React.FC = () => {
   return (
     <div>
       <h1>Seznam receptů</h1>
@@ -12,4 +12,6 @@ export default function RecipeList() {
       <RecipeAddForm />
     </div>
   );
-}
+};
+
+export default RecipeList;

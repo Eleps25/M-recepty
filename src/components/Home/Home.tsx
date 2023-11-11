@@ -1,10 +1,12 @@
 import HomeInfo from "../HomeInfo/HomeInfo";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <div>
-        <h1>Domovská stránka</h1>
-        <HomeInfo />
+      <h1>Domovská stránka</h1>
+      <HomeInfo />
     </div>
   );
-}
+};
+
+export default Home;

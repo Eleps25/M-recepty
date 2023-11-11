@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 
-export default function RecipeDetail() {
+const RecipeDetail: React.FC = () => {
   const [cookedNumber, setCookedNumber] = useState<number>(0);
   return (
     <div>
@@ -24,4 +24,6 @@ export default function RecipeDetail() {
       </Button>
     </div>
   );
-}
+};
+
+export default RecipeDetail;

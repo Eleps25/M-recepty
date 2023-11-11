@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 
-export default function RecipeAddForm() {
-  return(
+const RecipeAddForm: React.FC = () => {
+  return (
     <div>
       <h1>Fromulář přidání nového receptu</h1>
       <h2>Název</h2>
@@ -13,5 +13,7 @@ export default function RecipeAddForm() {
       <h2>Suroviny</h2>
       <Button variant="success">Přidat</Button>
     </div>
-  ) 
-}
+  );
+};
+
+export default RecipeAddForm;
