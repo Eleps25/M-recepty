@@ -1,3 +1,10 @@
+import HomeInfo from "../HomeInfo/HomeInfo";
+
 export default function Home() {
-  return <h1>Domů</h1>;
+  return (
+    <div>
+        <h1>Domovská stránka</h1>
+        <HomeInfo />
+    </div>
+  );
 }

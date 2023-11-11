@@ -2,7 +2,6 @@ import "./App.css";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
-import HomeInfo from "./components/HomeInfo/HomeInfo";
 import Recipe from "./components/Recipe/Recipe";
 import RecipeAddForm from "./components/RecipeAddForm/RecipeAddForm";
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
@@ -15,7 +14,6 @@ function App() {
     <>
       <Header />
       <Home />
-      <HomeInfo />
       <RecipeList />
       <Recipe />
       <RecipeAddForm />
