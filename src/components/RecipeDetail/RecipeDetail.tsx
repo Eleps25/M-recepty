@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Recipe } from "../../interfaces/Recipe";
+import { IRecipe } from "../../interfaces/Recipe";
 
 import Button from "react-bootstrap/Button";
 
 interface Props {
   id: string | undefined,
-  recipeData: Recipe
+  recipeData: IRecipe
 }
 
 const RecipeDetail: React.FC<Props> = (props) => {
@@ -34,7 +34,7 @@ const RecipeDetail: React.FC<Props> = (props) => {
       <Button variant="primary">Upravit</Button>
       <Button
         variant="success"
-        onClick={() => setCookedNumber(cookedNumber + 1)}
+        onClick={() => setCookedNumber(cookingNumber + 1)}
       >
         Počet vaření +1
       </Button>

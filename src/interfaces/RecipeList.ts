@@ -1,4 +1,4 @@
-export interface IRecipe {
+export interface IRecipeList {
     title: string,
     book: string,
     mealType: string,
@@ -6,5 +6,6 @@ export interface IRecipe {
     prepareTime: number,
     cookedNumber: number,
     isFavourite: boolean,
-    ingredients: string[]
+    ingredients: string[],
+    id: string
 }

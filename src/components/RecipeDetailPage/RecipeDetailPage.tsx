@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
-import { Recipe } from "../../interfaces/Recipe";
+import { IRecipe } from "../../interfaces/Recipe";
 
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
 import RecipeEdit from "../RecipeEdit/RecipeEdit";
 
 const RecipeDetailPage: React.FC = () => {
   const { id } = useParams();
-  const [recipeData, setRecipeData] = useState<Recipe>();
+  const [recipeData, setRecipeData] = useState<IRecipe>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
 
   const tmpid: string = "pgIPH0iE8GjVZmBdgiTn";
