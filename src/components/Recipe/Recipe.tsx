@@ -10,8 +10,8 @@ interface Props {
 }
 
 const Recipe: React.FC<Props> = (props) => {
-  const {title, book, mealType, difficulty, prepareTime, cookedNumber, id} = props.recipeData;
-  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+  const {title, book, mealType, difficulty, prepareTime, cookedNumber, id, isFavourite} = props.recipeData;
+  const [isMealFavourite, setIsMealFavourite] = useState<boolean>(isFavourite);
   return (
     <div>
       <h1>Název receptu: {title}</h1>
@@ -25,8 +25,8 @@ const Recipe: React.FC<Props> = (props) => {
         Oblíbené:{" "}
         <input
           type="checkbox"
-          checked={isFavourite}
-          onChange={() => setIsFavourite(!isFavourite)}
+          checked={isMealFavourite}
+          onChange={() => setIsMealFavourite(!isMealFavourite)}
         />
       </h2>
       <Link to={`/recipelist/${id}`}><Button>Detail</Button></Link>

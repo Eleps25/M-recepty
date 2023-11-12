@@ -1,6 +1,10 @@
 import Button from "react-bootstrap/Button";
 
-const RecipeAddForm: React.FC = () => {
+interface Props {
+  toggleAdd: (arg: boolean) => void
+}
+
+const RecipeAddForm: React.FC<Props> = (props) => {
   return (
     <div>
       <h1>Fromulář přidání nového receptu</h1>
@@ -12,6 +16,7 @@ const RecipeAddForm: React.FC = () => {
       <h2>Doba vaření</h2>
       <h2>Suroviny</h2>
       <Button variant="success">Přidat</Button>
+      <Button variant="danger" onClick={() => props.toggleAdd(false)}>Zpět</Button>
     </div>
   );
 };

@@ -14,9 +14,7 @@ const RecipeDetailPage: React.FC = () => {
   const [recipeData, setRecipeData] = useState<IRecipe>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
 
-  const tmpid: string = "pgIPH0iE8GjVZmBdgiTn";
-
-  const docRef: any = doc(db, "recipes", tmpid);
+  const docRef: any = doc(db, "recipes", id);
 
   useEffect(() => {
     const getRecipeData = async () => {

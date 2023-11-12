@@ -9,13 +9,16 @@ import { db } from "../../config/firebase";
 import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
 
- interface IRecipeList extends IRecipe {
+import Button from "react-bootstrap/Button";
+
+interface IRecipeList extends IRecipe {
   id: string;
-} 
+}
 
 const RecipeList: React.FC = () => {
   const [recipes, setRecipes] = useState<IRecipeList[]>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
+  const [isAdding, setIsAdding] = useState<boolean>(false);
 
   const recipesCollectionRef = collection(db, "recipes");
 
@@ -29,20 +32,26 @@ const RecipeList: React.FC = () => {
       setRecipes(filteredData);
       setIsLoad(true);
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   };
 
   useEffect(() => {
     getRecipeList();
-    console.log("useEffect: ", recipes)
   }, []);
 
   return (
     <div>
       <h1>Seznam receptů</h1>
-      {isLoad? recipes.map((recipe) => {return <Recipe recipeData={recipe} key={recipe.id}/>}) : "Loading"}
-      <RecipeAddForm />
+      {isAdding ? <RecipeAddForm toggleAdd={setIsAdding} /> : null}
+      {isLoad
+        ? recipes.map((recipe) => {
+            return <Recipe recipeData={recipe} key={recipe.id} />;
+          })
+        : "Loading"}
+      {isAdding ? null : (
+        <Button onClick={() => setIsAdding(true)}>Přidat recept</Button>
+      )}
     </div>
   );
 };
