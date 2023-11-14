@@ -10,13 +10,14 @@ interface Props {
 }
 
 const Recipe: React.FC<Props> = (props) => {
-  const {title, book, mealType, difficulty, prepareTime, cookedNumber, id, isFavourite} = props.recipeData;
+  const {title, book, mealType, difficulty, prepareTime, cookedNumber, id, isFavourite, page} = props.recipeData;
   const [isMealFavourite, setIsMealFavourite] = useState<boolean>(isFavourite);
   return (
     <div>
       <h1>Název receptu: {title}</h1>
       <h2>Obrázek</h2>
       <h2>Název knihy: {book}</h2>
+      <h2>Strana: {page}</h2>
       <h2>Typ: {mealType}</h2>
       <h2>Počet vaření: {cookedNumber}</h2>
       <h2>Náročnost: {difficulty}</h2>

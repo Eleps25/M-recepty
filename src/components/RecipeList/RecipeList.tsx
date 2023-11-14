@@ -43,7 +43,7 @@ const RecipeList: React.FC = () => {
   return (
     <div>
       <h1>Seznam receptů</h1>
-      {isAdding ? <RecipeAddForm toggleAdd={setIsAdding} /> : null}
+      {isAdding ? <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList}/> : null}
       {isLoad
         ? recipes.map((recipe) => {
             return <Recipe recipeData={recipe} key={recipe.id} />;

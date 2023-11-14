@@ -12,7 +12,7 @@ interface Props {
 
 const RecipeDetail: React.FC<Props> = (props) => {
   const {id} = props;
-  const {title, book, mealType, difficulty, prepareTime, cookedNumber, ingredients} = props.recipeData;
+  const {title, book, mealType, difficulty, prepareTime, cookedNumber, ingredients, page} = props.recipeData;
   const [cookingNumber, setCookedNumber] = useState<number>(cookedNumber);
   return (
     <div>
@@ -20,6 +20,7 @@ const RecipeDetail: React.FC<Props> = (props) => {
       <h2>Název: {title}</h2>
       <h2>Obrázek</h2>
       <h2>Kniha: {book}</h2>
+      <h2>Strana: {page}</h2>
       <h2>Typ: {mealType}</h2>
       <h2>Náročnost: {difficulty}</h2>
       <h2>Doba vaření: {prepareTime}</h2>

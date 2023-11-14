@@ -1,6 +1,7 @@
 export interface IRecipe {
     title: string,
     book: string,
+    page: number,
     mealType: string,
     difficulty: string,
     prepareTime: number,
