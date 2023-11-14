@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { IRecipe } from "../../interfaces/Recipe";
 /* import { IRecipeList } from "../../interfaces/RecipeList"; */
 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 import Recipe from "../Recipe/Recipe";
@@ -40,13 +40,26 @@ const RecipeList: React.FC = () => {
     getRecipeList();
   }, []);
 
+  const deleteRecipe = async (id: string) => {
+    const recipeDoc = doc(db, "recipes", id);
+    try {
+      await deleteDoc(recipeDoc);
+
+      getRecipeList();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <h1>Seznam receptů</h1>
-      {isAdding ? <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList}/> : null}
+      {isAdding ? (
+        <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList} />
+      ) : null}
       {isLoad
         ? recipes.map((recipe) => {
-            return <Recipe recipeData={recipe} key={recipe.id} />;
+            return <Recipe recipeData={recipe} key={recipe.id} deleteRecipe={() => deleteRecipe(recipe.id)} />;
           })
         : "Loading"}
       {isAdding ? null : (

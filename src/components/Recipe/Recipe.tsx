@@ -6,7 +6,8 @@ import {IRecipeList} from "../../interfaces/RecipeList";
 import Button from "react-bootstrap/Button";
 
 interface Props {
-  recipeData: IRecipeList
+  recipeData: IRecipeList,
+  deleteRecipe: () => void;
 }
 
 const Recipe: React.FC<Props> = (props) => {
@@ -31,6 +32,7 @@ const Recipe: React.FC<Props> = (props) => {
         />
       </h2>
       <Link to={`/recipelist/${id}`}><Button>Detail</Button></Link>
+      <Button onClick={props.deleteRecipe} variant="danger">Delete</Button>
     </div>
   );
 };
