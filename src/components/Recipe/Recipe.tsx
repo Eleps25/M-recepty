@@ -1,18 +1,27 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import {IRecipeList} from "../../interfaces/RecipeList";
+import { IRecipeList } from "../../interfaces/RecipeList";
 
 import Button from "react-bootstrap/Button";
 
 interface Props {
-  recipeData: IRecipeList,
+  recipeData: IRecipeList;
   deleteRecipe: () => void;
+  updateRecipeFavourite: () => void;
 }
 
 const Recipe: React.FC<Props> = (props) => {
-  const {title, book, mealType, difficulty, prepareTime, cookedNumber, id, isFavourite, page} = props.recipeData;
-  const [isMealFavourite, setIsMealFavourite] = useState<boolean>(isFavourite);
+  const {
+    title,
+    book,
+    mealType,
+    difficulty,
+    prepareTime,
+    cookedNumber,
+    id,
+    isFavourite,
+    page,
+  } = props.recipeData;
   return (
     <div>
       <h1>Název receptu: {title}</h1>
@@ -27,12 +36,16 @@ const Recipe: React.FC<Props> = (props) => {
         Oblíbené:{" "}
         <input
           type="checkbox"
-          checked={isMealFavourite}
-          onChange={() => setIsMealFavourite(!isMealFavourite)}
+          checked={isFavourite}
+          onChange={props.updateRecipeFavourite}
         />
       </h2>
-      <Link to={`/recipelist/${id}`}><Button>Detail</Button></Link>
-      <Button onClick={props.deleteRecipe} variant="danger">Delete</Button>
+      <Link to={`/recipelist/${id}`}>
+        <Button>Detail</Button>
+      </Link>
+      <Button onClick={props.deleteRecipe} variant="danger">
+        Delete
+      </Button>
     </div>
   );
 };
