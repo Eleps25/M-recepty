@@ -54,7 +54,7 @@ const RecipeDetailPage: React.FC = () => {
     if (!isLoad) {
       return "Loading...";
     } else if (isEditing) {
-      return <RecipeEdit stopEdit={handleEdit} recipeData={recipeData}/>;
+      return <RecipeEdit stopEdit={handleEdit} recipeData={recipeData} id={id}/>;
     } else {
       return <RecipeDetail id={id} recipeData={recipeData} key={id} startEdit={handleEdit} increaseCookedNumber={handleIncreaseCookedNumber} />;
     }

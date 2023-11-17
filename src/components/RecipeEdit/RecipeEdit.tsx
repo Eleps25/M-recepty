@@ -2,11 +2,15 @@ import { useState } from "react";
 
 import { IRecipe } from "../../interfaces/Recipe";
 
+import { collection, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
+
 import Button from "react-bootstrap/Button";
 
 interface Props {
   stopEdit: () => void;
   recipeData: IRecipe;
+  id: string;
 }
 
 interface EditItem {
@@ -28,10 +32,10 @@ const RecipeEdit: React.FC<Props> = (props) => {
   const [updatedRecipe, setUpdatedRecipe] = useState<EditItem>(
     props.recipeData
   );
-  const [ingredientList, setIngredientList] = useState<string[]>(
-    props.recipeData.ingredients
-  );
+  const [ingredientList, setIngredientList] = useState<string[]>(ingredients);
   const [newIngredient, setNewIngredient] = useState<string>("");
+
+  const recipesCollectionRef = collection(db, "recipes");
 
   const tmpUpdateRecipe = (
     name: string,
@@ -61,12 +65,23 @@ const RecipeEdit: React.FC<Props> = (props) => {
     setNewIngredient("");
   };
 
-  const updateRecipe = () => {
+  const updateRecipe = async () => {
     if (!startedUpdate) {
       alert("Nebyla provedena žádná změna");
       return;
     }
-    console.log({ ...updatedRecipe, ingredients: ingredientList });
+
+    const recipeDoc = doc(db, "recipes", props.id);
+    try {
+      await updateDoc(recipeDoc, {
+        ...updatedRecipe,
+        ingredients: ingredientList,
+      });
+      alert("Recipe updated");
+      console.log({ ...updatedRecipe, ingredients: ingredientList });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const validateUpdate = () => {
@@ -78,6 +93,15 @@ const RecipeEdit: React.FC<Props> = (props) => {
       }
     } else {
       props.stopEdit();
+    }
+  };
+
+  const sendUpdatedRecipe = async (recipe) => {
+    const recipeDoc = doc(db, "recipes", props.id);
+    try {
+      await updateDoc(recipeDoc, { isFavourite: !recipe.isFavourite });
+    } catch (err) {
+      console.log(err);
     }
   };
 
