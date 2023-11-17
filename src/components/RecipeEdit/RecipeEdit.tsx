@@ -97,6 +97,17 @@ const RecipeEdit: React.FC<Props> = (props) => {
     }
   };
 
+  const deleteIngredient = (ingr) => {
+    console.log(ingr);
+    const tmpIngredientList: string[] = ingredientList.filter(
+      (ingredient) => ingredient !== ingr
+    );
+    console.log(tmpIngredientList);
+    setIngredientList(tmpIngredientList);
+    setStartedUpdate(true);
+    setIsUpdating(true);
+  };
+
   return (
     <div>
       <h1>Editace receptu</h1>
@@ -148,11 +159,20 @@ const RecipeEdit: React.FC<Props> = (props) => {
       <ul>
         {ingredientList.map((ingredient, index) => {
           return (
-            <input
-              key={index}
-              value={ingredientList[index]}
-              onChange={(e) => updateIngredient(e.target.value, index)}
-            />
+            <div key={`${ingredient}-${index}-div`}>
+              <input
+                key={index}
+                value={ingredientList[index]}
+                onChange={(e) => updateIngredient(e.target.value, index)}
+              />
+              <Button
+                key={`${ingredient}-${index}-delBut`}
+                onClick={() => deleteIngredient(ingredient)}
+                variant="danger"
+              >
+                Delete Ingredient
+              </Button>
+            </div>
           );
         })}
       </ul>
