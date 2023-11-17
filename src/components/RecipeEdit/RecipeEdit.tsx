@@ -23,6 +23,7 @@ const RecipeEdit: React.FC<Props> = (props) => {
   const { title, book, page, mealType, difficulty, prepareTime, ingredients } =
     props.recipeData;
 
+  const [startedUpdate, setStartedUpdate] = useState<boolean>(false);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [updatedRecipe, setUpdatedRecipe] = useState<EditItem>(
     props.recipeData
@@ -37,22 +38,41 @@ const RecipeEdit: React.FC<Props> = (props) => {
     newValue: string | number | string[]
   ) => {
     setUpdatedRecipe({ ...updatedRecipe, [name]: newValue });
+    setStartedUpdate(true);
+    setIsUpdating(true);
+  };
+
+  const updateIngredient = (ingrNewValue: string, ingrIndex: number) => {
+    const tmpIngredients: string[] = [...ingredientList];
+    tmpIngredients[ingrIndex] = ingrNewValue;
+    setIngredientList(tmpIngredients);
+    setStartedUpdate(true);
     setIsUpdating(true);
   };
 
   const updateIngredientList = () => {
-    setIngredientList([...ingredients, newIngredient]);
+    if (!newIngredient) {
+      alert("Pole pro novou ingredienci nesmí být prázdné");
+      return;
+    }
+    setIngredientList([...ingredientList, newIngredient]);
+    setStartedUpdate(true);
     setIsUpdating(true);
+    setNewIngredient("");
   };
 
   const updateRecipe = () => {
+    if (!startedUpdate) {
+      alert("Nebyla provedena žádná změna");
+      return;
+    }
     console.log({ ...updatedRecipe, ingredients: ingredientList });
   };
 
   const validateUpdate = () => {
     if (isUpdating) {
-      if(confirm("Máte neuložené změny. Chcete změny zrušit?")){
-        props.stopEdit()
+      if (confirm("Máte neuložené změny. Chcete změny zrušit?")) {
+        props.stopEdit();
       } else {
         return;
       }
@@ -110,14 +130,22 @@ const RecipeEdit: React.FC<Props> = (props) => {
       />
       <h2>Suroviny</h2>
       <ul>
-        {ingredients.map((ingredient, index) => {
-          return <input key={index} value={ingredient} />;
+        {ingredientList.map((ingredient, index) => {
+          return (
+            <input
+              key={index}
+              value={ingredientList[index]}
+              onChange={(e) => updateIngredient(e.target.value, index)}
+            />
+          );
         })}
       </ul>
       <div>
         <input
+          id="new-ingredient"
           placeholder="New ingredient"
           onChange={(e) => setNewIngredient(e.target.value)}
+          value={newIngredient}
         />
         <Button variant="primary" onClick={updateIngredientList}>
           Add Ingredient
