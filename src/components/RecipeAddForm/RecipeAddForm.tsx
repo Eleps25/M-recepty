@@ -7,7 +7,8 @@ import Button from "react-bootstrap/Button";
 
 interface Props {
   toggleAdd: (arg: boolean) => void;
-  getList: () => void
+  getList: () => void;
+  
 }
 
 const RecipeAddForm: React.FC<Props> = (props) => {
