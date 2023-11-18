@@ -14,7 +14,7 @@ const HomeRandomRecipe: React.FC<Props> = (props) => {
   const randomRecipe: IRecipeList = recipes[randomRecipeNumber];
   return (
     <div className="randomRecipe-container">
-      <h1>Random Recipe</h1>
+      <h1>Náhodný recept</h1>
       <HomeRecipe recipeData={randomRecipe} key={randomRecipe.id} />
     </div>
   );

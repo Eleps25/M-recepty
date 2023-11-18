@@ -25,7 +25,7 @@ const HomeMostPrepared: React.FC<Props> = (props) => {
 
   return (
     <div className="mostPrepared-container">
-      <h1>Most prepared</h1>
+      <h1>Top 3 recepty</h1>
       <CardGroup>{showMostPrepared()}</CardGroup>
     </div>
   );
