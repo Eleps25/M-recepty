@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { IRecipeList } from "../../interfaces/RecipeList";
 
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+
+import image from "../../tmpImgs/food1.jpg";
 
 interface Props {
   recipeData: IRecipeList;
@@ -21,27 +24,37 @@ const HomeRecipe: React.FC<Props> = (props) => {
     page,
   } = props.recipeData;
   return (
-    <div>
-      <h1>Název receptu: {title}</h1>
-      <h2>Obrázek</h2>
-      <h2>Název knihy: {book}</h2>
-      <h2>Strana: {page}</h2>
-      <h2>Typ: {mealType}</h2>
-      <h2>Počet vaření: {cookedNumber}</h2>
-      <h2>Náročnost: {difficulty}</h2>
-      <h2>Doba přípravy: {prepareTime}</h2>
-      <h2>
-        Oblíbené:{" "}
-        <input
-          type="checkbox"
-          checked={isFavourite}
-          disabled
-        />
-      </h2>
-      <Link to={`/recipelist/${id}`}>
-        <Button>Detail</Button>
-      </Link>
-    </div>
+    <Card
+      className="myCard-container text-center"
+      bg={isFavourite ? "warning" : null}
+    >
+      <Card.Img src={image} variant="bottom" />
+      {
+        <Card.Header>
+          <Card.Title>{title}</Card.Title>
+        </Card.Header>
+      }
+      <Card.Body>
+        <Card.Text>Strana: {page}</Card.Text>{" "}
+        <Card.Text>Kniha: {book}</Card.Text>
+        <Card.Body>
+          <Card.Text>Počet vaření: {cookedNumber}</Card.Text>
+          <Card.Text>Náročnost: {difficulty}</Card.Text>
+        </Card.Body>
+        <Card.Body>
+          <Card.Text>Typ: {mealType}</Card.Text>
+          Doba přípravy: {prepareTime} minut
+        </Card.Body>
+        <Card.Text>
+          Oblíbené: <input type="checkbox" checked={isFavourite} disabled />
+        </Card.Text>
+      </Card.Body>
+      <Card.Footer>
+        <Link to={`/recipelist/${id}`}>
+          <Button>Detail</Button>
+        </Link>
+      </Card.Footer>
+    </Card>
   );
 };
 
