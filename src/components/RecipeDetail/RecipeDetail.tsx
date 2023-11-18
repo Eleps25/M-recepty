@@ -1,29 +1,59 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { IRecipe } from "../../interfaces/Recipe";
 
 import Button from "react-bootstrap/Button";
 
-const RecipeDetail: React.FC = () => {
-  const [cookedNumber, setCookedNumber] = useState<number>(0);
+interface Props {
+  id: string | undefined;
+  recipeData: IRecipe;
+  startEdit: () => void;
+  increaseCookedNumber: () => void;
+}
+
+const RecipeDetail: React.FC<Props> = (props) => {
+  const { id } = props;
+  const {
+    title,
+    book,
+    mealType,
+    difficulty,
+    prepareTime,
+    cookedNumber,
+    ingredients,
+    page,
+  } = props.recipeData;
+
   return (
     <div>
-      <h1>Editace receptu</h1>
-      <h2>Název</h2>
+      <h1>Editace receptu - {id}</h1>
+      <h2>Název: {title}</h2>
       <h2>Obrázek</h2>
-      <h2>Kniha</h2>
-      <h2>Typ</h2>
-      <h2>Náročnost</h2>
-      <h2>Doba vaření</h2>
+      <h2>Kniha: {book}</h2>
+      <h2>Strana: {page}</h2>
+      <h2>Typ: {mealType}</h2>
+      <h2>Náročnost: {difficulty}</h2>
+      <h2>Doba vaření: {prepareTime}</h2>
       <h2>Suroviny</h2>
       <h2>Počet vaření - {cookedNumber}</h2>
-      <Button variant="primary">Upravit</Button>
+      <h2>Ingredience: </h2>
+      <ul>
+        {ingredients.map((ingredient) => {
+          return <li key={ingredient}>{ingredient}</li>;
+        })}
+      </ul>
+      <Button variant="primary" onClick={props.startEdit}>
+        Upravit
+      </Button>
       <Button
         variant="success"
-        onClick={() => setCookedNumber(cookedNumber + 1)}
+        onClick={props.increaseCookedNumber}
       >
         Počet vaření +1
       </Button>
-      <Link to="/recipelist"><Button>Zpět</Button></Link>
+      <Link to="/recipelist">
+        <Button>Zpět</Button>
+      </Link>
     </div>
   );
 };
