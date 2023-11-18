@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
-import HomeInfo from "../HomeInfo/HomeInfo";
-import HomeMostPrepared from "../HomeMostPrepared/HomeMostPrepared";
+/* import HomeInfo from "../HomeInfo/HomeInfo";
+ */ import HomeMostPrepared from "../HomeMostPrepared/HomeMostPrepared";
 import HomeRandomRecipe from "../HomeRandomRecipe/HomeRandomRecipe";
 
 import { IRecipeList } from "../../interfaces/RecipeList";
+
+import Spinner from "react-bootstrap/Spinner";
+import "./style.css";
 
 const Home: React.FC = () => {
   const [recipes, setRecipes] = useState<IRecipeList[]>();
@@ -36,15 +39,28 @@ const Home: React.FC = () => {
   return (
     <div>
       <h1>Domovská stránka</h1>
-      <HomeInfo />
-      {isLoad ? (
-        <section>
-          <HomeMostPrepared listData={recipes} />
-          <HomeRandomRecipe listData={recipes} />
-        </section>
-      ) : (
-        "Loading"
-      )}
+      {/*       <HomeInfo />
+       */}
+      <section className="home-recipes">
+        {isLoad ? (
+          <div className="home-mostPrepared">
+            <HomeMostPrepared listData={recipes} />
+          </div>
+        ) : (
+          <div className="home-spinner">
+            <Spinner animation="border" />
+          </div>
+        )}
+        {isLoad ? (
+          <div className="home-randomRecipe">
+            <HomeRandomRecipe listData={recipes} />
+          </div>
+        ) : (
+          <div className="home-spinner">
+            <Spinner animation="border" />
+          </div>
+        )}
+      </section>
     </div>
   );
 };

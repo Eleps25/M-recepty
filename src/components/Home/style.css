@@ -1,0 +1,21 @@
+.home-recipes {
+    border: 2px solid blue;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.home-mostPrepared {
+    border: 2px solid green;
+    width: 60%;
+}
+
+.home-randomRecipe {
+ width: 40%;
+ border: 2px solid red;
+}
+
+.home-spinner {
+    display: flex;
+    justify-content: center;
+}
