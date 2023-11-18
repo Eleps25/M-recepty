@@ -1,0 +1,7 @@
+.mostPrepared-container {
+  padding: 0em 1em 0em 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
