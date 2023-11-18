@@ -44,7 +44,7 @@ const Recipe: React.FC<Props> = (props) => {
         <Button>Detail</Button>
       </Link>
       <Button onClick={props.deleteRecipe} variant="danger">
-        Delete
+        Smazat
       </Button>
     </div>
   );

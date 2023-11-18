@@ -26,7 +26,7 @@ const RecipeDetail: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <h1>Editace receptu - {id}</h1>
+      <h1>Detail receptu - {id}</h1>
       <h2>Název: {title}</h2>
       <h2>Obrázek</h2>
       <h2>Kniha: {book}</h2>
