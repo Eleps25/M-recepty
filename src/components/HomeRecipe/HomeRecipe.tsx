@@ -8,7 +8,7 @@ interface Props {
   recipeData: IRecipeList;
 }
 
-const HomeMostPreparedRecipe: React.FC<Props> = (props) => {
+const HomeRecipe: React.FC<Props> = (props) => {
   const {
     title,
     book,
@@ -45,4 +45,4 @@ const HomeMostPreparedRecipe: React.FC<Props> = (props) => {
   );
 };
 
-export default HomeMostPreparedRecipe;
+export default HomeRecipe;

@@ -1,6 +1,6 @@
 import { IRecipeList } from "../../interfaces/RecipeList";
 
-import HomeMostPreparedRecipe from "../HomeMostPreparedRecipe/HomeMostPreparedRecipe";
+import HomeRecipe from "../HomeRecipe/HomeRecipe";
 
 interface Props {
   listData: IRecipeList[];
@@ -16,7 +16,7 @@ const HomeMostPrepared: React.FC<Props> = (props) => {
       )
       .slice(0, 3)
       .map((recipe) => {
-        return <HomeMostPreparedRecipe recipeData={recipe} key={recipe.id} />;
+        return <HomeRecipe recipeData={recipe} key={recipe.id} />;
       });
   };
 

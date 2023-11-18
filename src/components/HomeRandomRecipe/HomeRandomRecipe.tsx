@@ -1,4 +1,4 @@
-import HomeMostPreparedRecipe from "../HomeMostPreparedRecipe/HomeMostPreparedRecipe";
+import HomeRecipe from "../HomeRecipe/HomeRecipe";
 
 import { IRecipeList } from "../../interfaces/RecipeList";
 
@@ -13,7 +13,7 @@ const HomeRandomRecipe: React.FC<Props> = (props) => {
   return (
     <div>
       <h1>Random Recipe</h1>
-      <HomeMostPreparedRecipe recipeData={randomRecipe} key={randomRecipe.id} />
+      <HomeRecipe recipeData={randomRecipe} key={randomRecipe.id} />
     </div>
   );
 };
