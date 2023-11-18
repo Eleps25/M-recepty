@@ -2,6 +2,9 @@ import { IRecipeList } from "../../interfaces/RecipeList";
 
 import HomeRecipe from "../HomeRecipe/HomeRecipe";
 
+import CardGroup from "react-bootstrap/CardGroup";
+import "./style.css";
+
 interface Props {
   listData: IRecipeList[];
 }
@@ -21,9 +24,9 @@ const HomeMostPrepared: React.FC<Props> = (props) => {
   };
 
   return (
-    <div>
+    <div className="mostPrepared-container">
       <h1>Most prepared</h1>
-      {showMostPrepared()}
+      <CardGroup>{showMostPrepared()}</CardGroup>
     </div>
   );
 };
