@@ -37,7 +37,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="home-container">
       <h1>Domovská stránka</h1>
       {/*       <HomeInfo />
        */}

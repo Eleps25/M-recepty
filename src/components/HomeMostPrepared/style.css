@@ -1,7 +1,5 @@
 .mostPrepared-container {
-  padding: 0em 2em 1em 2em;
-  margin: 0em 1em;
-  border: 2px solid black;
+  padding: 0em 1em 0em 1em;
   display: flex;
   justify-content: center;
   align-items: center;

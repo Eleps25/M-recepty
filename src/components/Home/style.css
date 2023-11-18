@@ -1,21 +1,28 @@
-.home-recipes {
-    border: 2px solid blue;
-    width: 100%;
+.home-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.home-recipes {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .home-mostPrepared {
-    border: 2px solid green;
-    width: 60%;
+  padding: 0em 1em;
+  width: 60%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .home-randomRecipe {
- width: 40%;
- border: 2px solid red;
+  width: 25%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .home-spinner {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }

@@ -4,6 +4,7 @@ import { IRecipeList } from "../../interfaces/RecipeList";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import "./style.css";
 
 import image from "../../tmpImgs/food1.jpg";
 
