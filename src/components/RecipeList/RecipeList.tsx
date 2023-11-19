@@ -3,13 +3,23 @@ import { useState, useEffect } from "react";
 import { IRecipe } from "../../interfaces/Recipe";
 /* import { IRecipeList } from "../../interfaces/RecipeList"; */
 
-import { collection, doc, getDocs, deleteDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
 
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "./style.css";
 
 interface IRecipeList extends IRecipe {
   id: string;
@@ -43,13 +53,13 @@ const RecipeList: React.FC = () => {
   const updateFavourite = async (recipe) => {
     const recipeDoc = doc(db, "recipes", recipe.id);
     try {
-      await updateDoc(recipeDoc, {isFavourite: !recipe.isFavourite})
-    
+      await updateDoc(recipeDoc, { isFavourite: !recipe.isFavourite });
+
       getRecipeList();
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const deleteRecipe = async (id: string) => {
     const recipeDoc = doc(db, "recipes", id);
@@ -63,19 +73,40 @@ const RecipeList: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="recipeList-container">
       <h1>Seznam receptů</h1>
+      {isAdding ? null : (
+        <Button onClick={() => setIsAdding(true)} className="recipeList-addButton">Přidat recept</Button>
+      )}
       {isAdding ? (
         <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList} />
       ) : null}
-      {isLoad
-        ? recipes.map((recipe) => {
-            return <Recipe recipeData={recipe} key={recipe.id} deleteRecipe={() => deleteRecipe(recipe.id)} updateRecipeFavourite={() => updateFavourite(recipe)}/>;
-          })
-        : "Loading"}
-      {isAdding ? null : (
-        <Button onClick={() => setIsAdding(true)}>Přidat recept</Button>
-      )}
+      <Container>
+        <Row
+          xs={1}
+          sm={2}
+          md={3}
+          lg={4}
+          xl={5}
+          xxl={6}
+          className="align-items-center"
+        >
+          {isLoad
+            ? recipes.map((recipe) => {
+                return (
+                  <Col xs={{offset: 3}} sm={{offset: 1}}>
+                    <Recipe
+                      recipeData={recipe}
+                      key={recipe.id}
+                      deleteRecipe={() => deleteRecipe(recipe.id)}
+                      updateRecipeFavourite={() => updateFavourite(recipe)}
+                    />
+                  </Col>
+                );
+              })
+            : "Loading"}
+        </Row>
+      </Container>
     </div>
   );
 };

@@ -1,0 +1,19 @@
+.container {
+  justify-content: center;
+  align-items: center;
+}
+
+.recipeList-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: stretch;
+  align-items: center;
+}
+
+.recipeList-addButton {
+    width: 100vw;
+    margin: 2em 0em;
+}
+@media (max-width: 360px) {
+}

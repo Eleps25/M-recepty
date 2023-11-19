@@ -26,7 +26,7 @@ const Recipe: React.FC<Props> = (props) => {
     page,
   } = props.recipeData;
   return (
-    <Card className="text-center" bg={isFavourite ? "warning" : null}>
+    <Card className="text-center myRecipeCard-container" bg={isFavourite ? "warning" : null}>
       <Card.Img src={image} />
       <Card.Header>
         <Card.Title>{title}</Card.Title>
