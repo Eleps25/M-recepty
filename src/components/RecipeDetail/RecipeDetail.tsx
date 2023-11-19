@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { IRecipe } from "../../interfaces/Recipe";
 
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
+import "./style.css";
+
+import image from "../../tmpImgs/food3.jpg";
 
 interface Props {
   id: string | undefined;
@@ -14,7 +18,6 @@ interface Props {
 const RecipeDetail: React.FC<Props> = (props) => {
   const { id } = props;
   const {
-    title,
     book,
     mealType,
     difficulty,
@@ -25,35 +28,31 @@ const RecipeDetail: React.FC<Props> = (props) => {
   } = props.recipeData;
 
   return (
-    <div>
-      <h1>Detail receptu - {id}</h1>
-      <h2>Název: {title}</h2>
-      <h2>Obrázek</h2>
+    <div className="recipeDetail-container">
       <h2>Kniha: {book}</h2>
       <h2>Strana: {page}</h2>
       <h2>Typ: {mealType}</h2>
       <h2>Náročnost: {difficulty}</h2>
-      <h2>Doba vaření: {prepareTime}</h2>
-      <h2>Suroviny</h2>
-      <h2>Počet vaření - {cookedNumber}</h2>
+      <h2>Doba přípravy: {prepareTime} minut</h2>
+      <h2>Připraveno: {cookedNumber}x</h2>
       <h2>Ingredience: </h2>
       <ul>
         {ingredients.map((ingredient) => {
           return <li key={ingredient}>{ingredient}</li>;
         })}
       </ul>
-      <Button variant="primary" onClick={props.startEdit}>
-        Upravit
-      </Button>
-      <Button
-        variant="success"
-        onClick={props.increaseCookedNumber}
-      >
-        Počet vaření +1
-      </Button>
-      <Link to="/recipelist">
-        <Button>Zpět</Button>
-      </Link>
+      <Image src={image} thumbnail/>
+      <section className="recipeDetail-buttons">
+        <Button variant="primary" onClick={props.startEdit}>
+          Upravit
+        </Button>
+        <Button variant="success" onClick={props.increaseCookedNumber}>
+          Připraveno +1
+        </Button>
+        <Link to="/recipelist">
+          <Button>Zpět</Button>
+        </Link>
+      </section>
     </div>
   );
 };

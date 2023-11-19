@@ -83,18 +83,18 @@ const RecipeList: React.FC = () => {
       ) : null}
       <Container>
         <Row
-          xs={1}
-          sm={2}
-          md={3}
-          lg={4}
-          xl={5}
-          xxl={6}
-          className="align-items-center"
+          xs="auto"
+          sm="auto"
+          md="auto"
+          lg="auto"
+          xl="auto"
+          xxl="auto"
+          className="justify-content-center"
         >
           {isLoad
             ? recipes.map((recipe) => {
                 return (
-                  <Col xs={{offset: 3}} sm={{offset: 1}}>
+                  <Col>
                     <Recipe
                       recipeData={recipe}
                       key={recipe.id}
