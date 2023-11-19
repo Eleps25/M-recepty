@@ -1,7 +1,7 @@
 const sortAsc = (columnToSort, recipes) => {
   const sortedRecipes = recipes.toSorted((firstRecipe, secondRecipe) => {
-    const columnOne = firstRecipe[columnToSort].toUpperCase();
-    const columnTwo = secondRecipe[columnToSort].toUpperCase();
+    const columnOne = typeof recipes[columnToSort] === "string" ? firstRecipe[columnToSort].toUpperCase() : firstRecipe[columnToSort];
+    const columnTwo = typeof recipes[columnToSort] === "string" ? secondRecipe[columnToSort].toUpperCase(): secondRecipe[columnToSort];
     if (columnOne < columnTwo) {
       return -1;
     }
@@ -15,8 +15,8 @@ const sortAsc = (columnToSort, recipes) => {
 
 const sortDesc = (columnToSort, recipes) => {
   const sortedRecipes = recipes.toSorted((firstRecipe, secondRecipe) => {
-    const columnOne = firstRecipe[columnToSort].toUpperCase();
-    const columnTwo = secondRecipe[columnToSort].toUpperCase();
+    const columnOne = typeof recipes[columnToSort] === "string" ? firstRecipe[columnToSort].toUpperCase() : firstRecipe[columnToSort];
+    const columnTwo = typeof recipes[columnToSort] === "string" ? secondRecipe[columnToSort].toUpperCase(): secondRecipe[columnToSort];
     if (columnOne < columnTwo) {
       return 1;
     }

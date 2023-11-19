@@ -14,6 +14,7 @@ import { db } from "../../config/firebase";
 
 import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
+import RecipeListSortBar from "../RecipeListSortBar/RecipeListSortBar.js";
 
 import passwordCheck from "../../HelperFunctions/passwordCheck.js";
 import sortItems from "../../HelperFunctions/sortFn.js";
@@ -92,42 +93,17 @@ const RecipeList: React.FC = () => {
     <div className="recipeList-container">
       <h1>Seznam receptů</h1>
       {isLoad ? (
-        <Button
-          onClick={() =>
-            sortItems(
-              recipes,
-              "title",
-              setRecipes,
-              isSorted,
-              setIsSorted,
-              isAscSorted,
-              setIsAscSorted,
-              sortedCol,
-              setSortedCol
-            )
-          }
-        >
-          Sort by title
-        </Button>
-      ) : null}
-      {isLoad ? (
-        <Button
-          onClick={() =>
-            sortItems(
-              recipes,
-              "difficulty",
-              setRecipes,
-              isSorted,
-              setIsSorted,
-              isAscSorted,
-              setIsAscSorted,
-              sortedCol,
-              setSortedCol
-            )
-          }
-        >
-          Sort by difficulty
-        </Button>
+        <RecipeListSortBar
+          sortItems={sortItems}
+          recipes={recipes}
+          setRecipes={setRecipes}
+          isSorted={isSorted}
+          setIsSorted={setIsSorted}
+          isAscSorted={isAscSorted}
+          setIsAscSorted={setIsAscSorted}
+          sortedCol={sortedCol}
+          setSortedCol={setSortedCol}
+        />
       ) : null}
       {isAdding ? null : (
         <Button
@@ -137,9 +113,6 @@ const RecipeList: React.FC = () => {
           Přidat recept
         </Button>
       )}
-      {isAdding ? (
-        <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList} />
-      ) : null}
       <Container>
         <Row
           xs="auto"
@@ -167,6 +140,9 @@ const RecipeList: React.FC = () => {
           )}
         </Row>
       </Container>
+      {isAdding ? (
+        <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList} />
+      ) : null}
     </div>
   );
 };
