@@ -16,7 +16,6 @@ interface Props {
 }
 
 const RecipeDetail: React.FC<Props> = (props) => {
-  const { id } = props;
   const {
     book,
     mealType,

@@ -9,7 +9,6 @@ import { IRecipe } from "../../interfaces/Recipe";
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
 import RecipeEdit from "../RecipeEdit/RecipeEdit";
 
-import Button from "react-bootstrap/Button";
 import "./style.css";
 
 const RecipeDetailPage: React.FC = () => {
