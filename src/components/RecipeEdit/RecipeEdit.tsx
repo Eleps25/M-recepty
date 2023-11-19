@@ -114,7 +114,6 @@ const RecipeEdit: React.FC<Props> = (props) => {
 
   return (
     <div className="recipeEdit-container">
-      <h2>Úprava receptu</h2>
       <Row xs={1} md={2}>
         <Form.Group as={Col}>
           <Form.Label>Název</Form.Label>

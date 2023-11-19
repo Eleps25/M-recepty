@@ -9,6 +9,7 @@ import { IRecipe } from "../../interfaces/Recipe";
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
 import RecipeEdit from "../RecipeEdit/RecipeEdit";
 
+import Spinner from "react-bootstrap/Spinner";
 import "./style.css";
 
 const RecipeDetailPage: React.FC = () => {
@@ -51,29 +52,34 @@ const RecipeDetailPage: React.FC = () => {
 
   const handleShow = () => {
     if (!isLoad) {
-      return "Loading...";
+      return <Spinner animation="border"/>;
     } else if (isEditing) {
       return (
-        <RecipeEdit stopEdit={handleEdit} recipeData={recipeData} id={id} />
+        <div className="detailPage-content">
+          <h1>{recipeData.title} - úprava</h1>
+          <RecipeEdit stopEdit={handleEdit} recipeData={recipeData} id={id} />
+        </div>
       );
     } else {
       return (
-        <RecipeDetail
-          id={id}
-          recipeData={recipeData}
-          key={id}
-          startEdit={handleEdit}
-          increaseCookedNumber={handleIncreaseCookedNumber}
-        />
+        <div className="detailPage-content">
+          <h1>{recipeData.title}</h1>
+          <RecipeDetail
+            id={id}
+            recipeData={recipeData}
+            key={id}
+            startEdit={handleEdit}
+            increaseCookedNumber={handleIncreaseCookedNumber}
+          />
+        </div>
       );
     }
   };
 
   return (
-    <div className="detailPage-content">
-      <h1>{isLoad && recipeData.title}</h1>
-      <div className="detailPage-data">{handleShow()}</div>
-    </div>
+      <div>
+        {handleShow()}
+      </div>
   );
 };
 

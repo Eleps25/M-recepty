@@ -19,6 +19,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 import "./style.css";
 
 interface IRecipeList extends IRecipe {
@@ -104,7 +105,7 @@ const RecipeList: React.FC = () => {
                   </Col>
                 );
               })
-            : "Loading"}
+            : <Spinner animation="border"/>}
         </Row>
       </Container>
     </div>
