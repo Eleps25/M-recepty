@@ -14,7 +14,7 @@ import { db } from "../../config/firebase";
 
 import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
-import RecipeListSortBar from "../RecipeListSortBar/RecipeListSortBar.js";
+import RecipeListSortBar from "../../components/RecipeListSort/RecipeListSortBar.js"
 
 import passwordCheck from "../../HelperFunctions/passwordCheck.js";
 import sortItems from "../../HelperFunctions/sortFn.js";

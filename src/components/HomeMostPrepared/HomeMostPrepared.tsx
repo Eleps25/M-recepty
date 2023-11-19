@@ -7,6 +7,7 @@ import "./style.css";
 
 interface Props {
   listData: IRecipeList[];
+  imageListSrc: string[];
 }
 
 const HomeMostPrepared: React.FC<Props> = (props) => {
@@ -19,7 +20,18 @@ const HomeMostPrepared: React.FC<Props> = (props) => {
       )
       .slice(0, 3)
       .map((recipe) => {
-        return <HomeRecipe recipeData={recipe} key={recipe.id} />;
+        const recipeImageSrcIndex = props.imageListSrc.findIndex((element) =>
+          element.includes(recipe.id)
+        );
+        const recipeImageSrc = props.imageListSrc[recipeImageSrcIndex];
+
+        return (
+          <HomeRecipe
+            recipeData={recipe}
+            key={recipe.id}
+            imgSrc={recipeImageSrc}
+          />
+        );
       });
   };
 
