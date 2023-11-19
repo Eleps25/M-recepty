@@ -32,16 +32,16 @@ const Recipe: React.FC<Props> = (props) => {
         <Card.Title>{title}</Card.Title>
       </Card.Header>
       <Card.Body>
-        <Card.Text>Název knihy: {book}</Card.Text>
-        <Card.Text>Strana: {page}</Card.Text>
+        <Card.Text>Náročnost: {difficulty}</Card.Text>
+        <Card.Text>Doba přípravy: {prepareTime} minut</Card.Text>
       </Card.Body>
       <Card.Body>
         <Card.Text>Typ: {mealType}</Card.Text>
         <Card.Text>Počet vaření: {cookedNumber}</Card.Text>
       </Card.Body>
       <Card.Body>
-        <Card.Text>Náročnost: {difficulty}</Card.Text>
-        <Card.Text>Doba přípravy: {prepareTime} minut</Card.Text>
+        <Card.Text>Název knihy: {book}</Card.Text>
+        <Card.Text>Strana: {page}</Card.Text>
       </Card.Body>
       <Card.Body>
         <Card.Text>
