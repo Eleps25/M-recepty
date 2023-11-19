@@ -16,6 +16,7 @@ import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
 
 import passwordCheck from "../../HelperFunctions/passwordCheck.js";
+import sortItems from "../../HelperFunctions/sortFn.js";
 
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -32,6 +33,10 @@ const RecipeList: React.FC = () => {
   const [recipes, setRecipes] = useState<IRecipeList[]>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [isAdding, setIsAdding] = useState<boolean>(false);
+
+  const [isSorted, setIsSorted] = useState<boolean>(false);
+  const [isAscSorted, setIsAscSorted] = useState<boolean>(false);
+  const [sortedCol, setSortedCol] = useState<string>("id");
 
   const recipesCollectionRef = collection(db, "recipes");
 
@@ -72,7 +77,7 @@ const RecipeList: React.FC = () => {
     if (!passwordCheck()) {
       return;
     }
-    
+
     const recipeDoc = doc(db, "recipes", id);
     try {
       await deleteDoc(recipeDoc);
@@ -86,8 +91,51 @@ const RecipeList: React.FC = () => {
   return (
     <div className="recipeList-container">
       <h1>Seznam receptů</h1>
+      {isLoad ? (
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "title",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Sort by title
+        </Button>
+      ) : null}
+      {isLoad ? (
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "difficulty",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Sort by difficulty
+        </Button>
+      ) : null}
       {isAdding ? null : (
-        <Button onClick={() => setIsAdding(true)} className="recipeList-addButton">Přidat recept</Button>
+        <Button
+          onClick={() => setIsAdding(true)}
+          className="recipeList-addButton"
+        >
+          Přidat recept
+        </Button>
       )}
       {isAdding ? (
         <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList} />
@@ -102,20 +150,21 @@ const RecipeList: React.FC = () => {
           xxl="auto"
           className="justify-content-center"
         >
-          {isLoad
-            ? recipes.map((recipe) => {
-                return (
-                  <Col>
-                    <Recipe
-                      recipeData={recipe}
-                      key={recipe.id}
-                      deleteRecipe={() => deleteRecipe(recipe.id)}
-                      updateRecipeFavourite={() => updateFavourite(recipe)}
-                    />
-                  </Col>
-                );
-              })
-            : <Spinner animation="border"/>}
+          {isLoad ? (
+            recipes.map((recipe) => {
+              return (
+                <Col key={recipe.id}>
+                  <Recipe
+                    recipeData={recipe}
+                    deleteRecipe={() => deleteRecipe(recipe.id)}
+                    updateRecipeFavourite={() => updateFavourite(recipe)}
+                  />
+                </Col>
+              );
+            })
+          ) : (
+            <Spinner animation="border" />
+          )}
         </Row>
       </Container>
     </div>
