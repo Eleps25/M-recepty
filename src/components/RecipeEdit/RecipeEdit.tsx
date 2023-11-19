@@ -7,6 +7,10 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "./style.css";
 
 interface Props {
   stopEdit: () => void;
@@ -109,90 +113,118 @@ const RecipeEdit: React.FC<Props> = (props) => {
   };
 
   return (
-    <div>
-      <h1>Editace receptu</h1>
-      <h2>Název: {title}</h2>
-      <input
-        id="title-id"
-        name="title"
-        value={updatedRecipe.title}
-        onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
-      />
-      <h2>Kniha: {book}</h2>
-      <input
-        id="book-id"
-        name="book"
-        value={updatedRecipe.book}
-        onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
-      />
-      <h2>Strana: {page}</h2>
-      <input
-        id="page-id"
-        name="page"
-        value={updatedRecipe.page}
-        type="number"
-        onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
-      />
-      <h2>Typ: {mealType}</h2>
-      <input
-        id="mealType-id"
-        name="mealType"
-        value={updatedRecipe.mealType}
-        onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
-      />
-      <h2>Náročnost: {difficulty}</h2>
-      <input
-        id="difficulty-id"
-        name="difficulty"
-        value={updatedRecipe.difficulty}
-        onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
-      />
-      <h2>Doba vaření: {prepareTime}</h2>
-      <input
-        id="prepareTime-id"
-        name="prepareTime"
-        value={updatedRecipe.prepareTime}
-        type="number"
-        onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
-      />
-      <h2>Suroviny</h2>
-      <ul>
-        {ingredientList.map((ingredient, index) => {
-          return (
-            <div key={`${ingredient}-${index}-div`}>
-              <input
-                key={index}
-                value={ingredientList[index]}
-                onChange={(e) => updateIngredient(e.target.value, index)}
-              />
-              <Button
-                key={`${ingredient}-${index}-delBut`}
-                onClick={() => deleteIngredient(ingredient)}
-                variant="danger"
+    <div className="recipeEdit-container">
+      <h2>Úprava receptu</h2>
+      <Row xs={1} md={2}>
+        <Form.Group as={Col}>
+          <Form.Label>Název</Form.Label>
+          <Form.Control
+            id="title-id"
+            name="title"
+            value={updatedRecipe.title}
+            onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group as={Col}>
+          <Form.Label>Typ</Form.Label>
+          <Form.Control
+            id="mealType-id"
+            name="mealType"
+            value={updatedRecipe.mealType}
+            onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
+          />
+        </Form.Group>
+      </Row>
+      <Row xs={1} md={2}>
+        <Form.Group as={Col}>
+          <Form.Label>Kniha</Form.Label>
+          <Form.Control
+            id="book-id"
+            name="book"
+            value={updatedRecipe.book}
+            onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group as={Col}>
+          <Form.Label>Strana</Form.Label>
+          <Form.Control
+            id="page-id"
+            name="page"
+            value={updatedRecipe.page}
+            type="number"
+            onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
+          />
+        </Form.Group>
+      </Row>
+      <Row xs={1} md={2}>
+        <Form.Group as={Col}>
+          <Form.Label>Náročnost</Form.Label>
+          <Form.Control
+            id="difficulty-id"
+            name="difficulty"
+            value={updatedRecipe.difficulty}
+            onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group as={Col}>
+          <Form.Label>Doba přípravy</Form.Label>
+          <Form.Control
+            id="prepareTime-id"
+            name="prepareTime"
+            value={updatedRecipe.prepareTime}
+            type="number"
+            onChange={(e) => tmpUpdateRecipe(e.target.name, e.target.value)}
+          />
+        </Form.Group>
+      </Row>
+      <Row>
+        <Form.Label as={Col}>Ingredience</Form.Label>
+      </Row>
+      <Form.Group>
+        <ul>
+          {ingredientList.map((ingredient, index) => {
+            return (
+              <div
+                key={`${ingredient}-${index}-div`}
+                className="recipeEdit-ingredientInputs"
               >
-                Delete Ingredient
-              </Button>
-            </div>
-          );
-        })}
-      </ul>
-      <div>
-        <input
-          id="new-ingredient"
-          placeholder="New ingredient"
-          onChange={(e) => setNewIngredient(e.target.value)}
-          value={newIngredient}
-        />
-        <Button variant="primary" onClick={updateIngredientList}>
-          Add Ingredient
+                <Form.Control
+                  key={index}
+                  value={ingredientList[index]}
+                  onChange={(e) => updateIngredient(e.target.value, index)}
+                />
+                <Button
+                  key={`${ingredient}-${index}-delBut`}
+                  onClick={() => deleteIngredient(ingredient)}
+                  variant="danger"
+                  className="recipeEidt-ingredientsButton"
+                >
+                  Smazat ingredienci
+                </Button>
+              </div>
+            );
+          })}
+        </ul>
+        <div className="recipeEdit-newIngredientInput">
+          <Form.Control
+            id="new-ingredient"
+            placeholder="Nová ingredience"
+            onChange={(e) => setNewIngredient(e.target.value)}
+            value={newIngredient}
+          />
+          <Button variant="primary" onClick={updateIngredientList} className="recipeEidt-ingredientsButton">
+            Přidat ingredienci
+          </Button>
+        </div>
+      </Form.Group>
+      <div className="recipeEdit-buttonsContainer">
+        <Button variant="success" onClick={() => updateRecipe()} className="recipeEdit-FuncButtons">
+          Uložit
+        </Button>
+        <Button variant="danger" onClick={validateUpdate} className="recipeEdit-FuncButtons">
+          Zpět
         </Button>
       </div>
-      <Button variant="success" onClick={() => updateRecipe()}>
-        Uložit
-      </Button>
-      <Button variant="danger" onClick={validateUpdate}>
-        Zpět
-      </Button>
     </div>
   );
 };

@@ -28,6 +28,17 @@ const RecipeDetail: React.FC<Props> = (props) => {
 
   return (
     <div className="recipeDetail-container">
+      <section className="recipeDetail-buttons">
+        <Button variant="primary" onClick={props.startEdit}>
+          Upravit
+        </Button>
+        <Button variant="success" onClick={props.increaseCookedNumber}>
+          Připraveno +1
+        </Button>
+        <Link to="/recipelist">
+          <Button>Zpět</Button>
+        </Link>
+      </section>
       <h2>Kniha: {book}</h2>
       <h2>Strana: {page}</h2>
       <h2>Typ: {mealType}</h2>
@@ -41,17 +52,6 @@ const RecipeDetail: React.FC<Props> = (props) => {
         })}
       </ul>
       <Image src={image} thumbnail/>
-      <section className="recipeDetail-buttons">
-        <Button variant="primary" onClick={props.startEdit}>
-          Upravit
-        </Button>
-        <Button variant="success" onClick={props.increaseCookedNumber}>
-          Připraveno +1
-        </Button>
-        <Link to="/recipelist">
-          <Button>Zpět</Button>
-        </Link>
-      </section>
     </div>
   );
 };
