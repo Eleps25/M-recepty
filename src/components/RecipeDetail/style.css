@@ -12,3 +12,80 @@
     align-items: flex-start;
     margin: 2em 0em;
 }
+
+.recipeDetail-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipeDetail-big-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.recipeDetail-big-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 0em 6em 0em 2em;
+}
+
+.recipeDetail-big-informations{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.recipeDetail-big-image {
+    width: 40%;
+}
+
+.recipeDetail-big-ingredients-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+/*     justify-content: center;
+    align-items: center; */
+    border-top: 2px solid grey;
+    margin: 2em 0em 0em 2em;
+/*     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.recipeDetail-big-all-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.recipeDetail-big-all-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 0em 2em;
+}
+
+.recipeDetail-big-all-informations{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.recipeDetail-big-all-image {
+    width: 35%;
+}
+
+.recipeDetail-big-all-ingredients-container {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
