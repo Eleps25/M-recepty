@@ -29,8 +29,7 @@ interface EditItem {
 }
 
 const RecipeEdit: React.FC<Props> = (props) => {
-  const { title, book, page, mealType, difficulty, prepareTime, ingredients } =
-    props.recipeData;
+  const { ingredients } = props.recipeData;
 
   const navigate = useNavigate();
 
@@ -211,16 +210,28 @@ const RecipeEdit: React.FC<Props> = (props) => {
             onChange={(e) => setNewIngredient(e.target.value)}
             value={newIngredient}
           />
-          <Button variant="primary" onClick={updateIngredientList} className="recipeEidt-ingredientsButton">
+          <Button
+            variant="primary"
+            onClick={updateIngredientList}
+            className="recipeEidt-ingredientsButton"
+          >
             Přidat ingredienci
           </Button>
         </div>
       </Form.Group>
       <div className="recipeEdit-buttonsContainer">
-        <Button variant="success" onClick={() => updateRecipe()} className="recipeEdit-FuncButtons">
+        <Button
+          variant="success"
+          onClick={() => updateRecipe()}
+          className="recipeEdit-FuncButtons"
+        >
           Uložit
         </Button>
-        <Button variant="danger" onClick={validateUpdate} className="recipeEdit-FuncButtons">
+        <Button
+          variant="danger"
+          onClick={validateUpdate}
+          className="recipeEdit-FuncButtons"
+        >
           Zpět
         </Button>
       </div>
