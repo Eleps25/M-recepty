@@ -1,4 +1,5 @@
 import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 import { IRecipeList } from "../../interfaces/RecipeList";
 
@@ -38,125 +39,129 @@ const RecipeListSortBar: React.FC<Props> = (props) => {
   } = props;
   return (
     <div>
-      <Button
-        onClick={() =>
-          sortItems(
-            recipes,
-            "title",
-            setRecipes,
-            isSorted,
-            setIsSorted,
-            isAscSorted,
-            setIsAscSorted,
-            sortedCol,
-            setSortedCol
-          )
-        }
-      >
-        Seřadit podle názvu
-      </Button>
-      <Button
-        onClick={() =>
-          sortItems(
-            recipes,
-            "difficulty",
-            setRecipes,
-            isSorted,
-            setIsSorted,
-            isAscSorted,
-            setIsAscSorted,
-            sortedCol,
-            setSortedCol
-          )
-        }
-      >
-        Seřadit podle náročnosti
-      </Button>
-      <Button
-        onClick={() =>
-          sortItems(
-            recipes,
-            "prepareTime",
-            setRecipes,
-            isSorted,
-            setIsSorted,
-            isAscSorted,
-            setIsAscSorted,
-            sortedCol,
-            setSortedCol
-          )
-        }
-      >
-        Seřadit podle doby přípravy
-      </Button>
-      <Button
-        onClick={() =>
-          sortItems(
-            recipes,
-            "mealType",
-            setRecipes,
-            isSorted,
-            setIsSorted,
-            isAscSorted,
-            setIsAscSorted,
-            sortedCol,
-            setSortedCol
-          )
-        }
-      >
-        Seřadit podle typu
-      </Button>
-      <Button
-        onClick={() =>
-          sortItems(
-            recipes,
-            "cookedNumber",
-            setRecipes,
-            isSorted,
-            setIsSorted,
-            isAscSorted,
-            setIsAscSorted,
-            sortedCol,
-            setSortedCol
-          )
-        }
-      >
-        Seřadit podle počtu příprav
-      </Button>
-      <Button
-        onClick={() =>
-          sortItems(
-            recipes,
-            "isFavourite",
-            setRecipes,
-            isSorted,
-            setIsSorted,
-            isAscSorted,
-            setIsAscSorted,
-            sortedCol,
-            setSortedCol
-          )
-        }
-      >
-        Seřadit podle oblíbenosti
-      </Button>
-      <Button
-        onClick={() =>
-          sortItems(
-            recipes,
-            "book",
-            setRecipes,
-            isSorted,
-            setIsSorted,
-            isAscSorted,
-            setIsAscSorted,
-            sortedCol,
-            setSortedCol
-          )
-        }
-      >
-        Seřadit podle knihy
-      </Button>
+      <ButtonGroup>
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "difficulty",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Náročnost
+        </Button>
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "prepareTime",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Doba přípravy
+        </Button>
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "mealType",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Typ
+        </Button>
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "cookedNumber",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Počet příprav
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup>
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "isFavourite",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Oblíbenost
+        </Button>
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "title",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Název
+        </Button>
+        <Button
+          onClick={() =>
+            sortItems(
+              recipes,
+              "book",
+              setRecipes,
+              isSorted,
+              setIsSorted,
+              isAscSorted,
+              setIsAscSorted,
+              sortedCol,
+              setSortedCol
+            )
+          }
+        >
+          Kniha
+        </Button>
+      </ButtonGroup>
     </div>
   );
 };
