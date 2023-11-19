@@ -6,6 +6,8 @@ import { IRecipe } from "../../interfaces/Recipe";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
+import passwordCheck from "../../HelperFunctions/passwordCheck.js";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -72,6 +74,10 @@ const RecipeEdit: React.FC<Props> = (props) => {
   const updateRecipe = async () => {
     if (!startedUpdate) {
       alert("Nebyla provedena žádná změna");
+      return;
+    }
+
+    if (!passwordCheck()) {
       return;
     }
 

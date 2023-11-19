@@ -15,6 +15,8 @@ import { db } from "../../config/firebase";
 import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
 
+import passwordCheck from "../../HelperFunctions/passwordCheck.js";
+
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -52,6 +54,10 @@ const RecipeList: React.FC = () => {
   }, []);
 
   const updateFavourite = async (recipe) => {
+    if (!passwordCheck()) {
+      return;
+    }
+
     const recipeDoc = doc(db, "recipes", recipe.id);
     try {
       await updateDoc(recipeDoc, { isFavourite: !recipe.isFavourite });
@@ -63,6 +69,10 @@ const RecipeList: React.FC = () => {
   };
 
   const deleteRecipe = async (id: string) => {
+    if (!passwordCheck()) {
+      return;
+    }
+    
     const recipeDoc = doc(db, "recipes", id);
     try {
       await deleteDoc(recipeDoc);

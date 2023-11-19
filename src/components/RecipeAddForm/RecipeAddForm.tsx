@@ -3,16 +3,17 @@ import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
+import passwordCheck from "../../HelperFunctions/passwordCheck.js";
+
 import Button from "react-bootstrap/Button";
 
 interface Props {
   toggleAdd: (arg: boolean) => void;
   getList: () => void;
-  
 }
 
 const RecipeAddForm: React.FC<Props> = (props) => {
-  const {getList} = props
+  const { getList } = props;
 
   const [newTitle, setNewTitle] = useState<string>("");
   const [newBook, setNewBook] = useState<string>("");
@@ -23,9 +24,13 @@ const RecipeAddForm: React.FC<Props> = (props) => {
   const [ingredients, setIngredients] = useState<string>("");
 
   const recipesCollectionRef = collection(db, "recipes");
-  
+
   const addRecipe = async (e) => {
     e.preventDefault();
+    if (!passwordCheck()) {
+      return;
+    }
+
     try {
       await addDoc(recipesCollectionRef, {
         title: newTitle,
@@ -34,7 +39,9 @@ const RecipeAddForm: React.FC<Props> = (props) => {
         mealType: newMealType,
         difficulty: newDifficulty,
         prepareTime: newPrepareTime,
-        ingredients: ingredients.split(",").map((ingredient) => ingredient.trim()),
+        ingredients: ingredients
+          .split(",")
+          .map((ingredient) => ingredient.trim()),
         cookedNumber: 0,
         isFavourite: false,
       });
@@ -103,7 +110,9 @@ const RecipeAddForm: React.FC<Props> = (props) => {
           name="ingredients"
           type="textarea"
           required
-          onChange={(e) => {setIngredients(e.target.value)}}
+          onChange={(e) => {
+            setIngredients(e.target.value);
+          }}
         />
         <Button variant="success" type="submit">
           Přidat

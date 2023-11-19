@@ -9,6 +9,8 @@ import { IRecipe } from "../../interfaces/Recipe";
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
 import RecipeEdit from "../RecipeEdit/RecipeEdit";
 
+import passwordCheck from "../../HelperFunctions/passwordCheck.js";
+
 import Spinner from "react-bootstrap/Spinner";
 import "./style.css";
 
@@ -37,6 +39,10 @@ const RecipeDetailPage: React.FC = () => {
 
   const handleIncreaseCookedNumber = async () => {
     const recipeDoc = doc(db, "recipes", id);
+    if (!passwordCheck()) {
+      return;
+    }
+
     try {
       await updateDoc(recipeDoc, { cookedNumber: recipeData.cookedNumber + 1 });
 
