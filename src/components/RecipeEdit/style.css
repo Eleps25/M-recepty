@@ -1,0 +1,44 @@
+.recipeEdit-container {
+  /*     display: flex;
+    flex-direction: column; */
+  margin: 2em;
+  width: 100%;
+}
+
+.recipeEdit-ingredientInputs {
+  display: flex;
+  margin: 0.2em;
+}
+/*
+.recipeEdit-bookSection {
+    display: flex;
+}*/
+
+.recipeEdit-newIngredientInput {
+  display: flex;
+}
+
+.recipeEdit-buttonsContainer {
+    display: flex;
+    margin-top: 1em;
+    justify-content: space-evenly;
+}
+
+.recipeEdit-FuncButtons {
+    width: 15%;
+}
+
+.recipeEidt-ingredientsButton {
+    width: 30%;
+}
+
+@media (max-width: 992px) {
+  .recipeEdit-buttonsContainer {
+    flex-direction: column;
+  }
+
+  .recipeEdit-FuncButtons {
+    width: 100%;
+    margin: 0.3em 0em;
+}
+}

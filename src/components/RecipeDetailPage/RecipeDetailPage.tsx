@@ -9,7 +9,10 @@ import { IRecipe } from "../../interfaces/Recipe";
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
 import RecipeEdit from "../RecipeEdit/RecipeEdit";
 
-import Button from "react-bootstrap/Button";
+import passwordCheck from "../../HelperFunctions/passwordCheck.js";
+
+import Spinner from "react-bootstrap/Spinner";
+import "./style.css";
 
 const RecipeDetailPage: React.FC = () => {
   const { id } = useParams();
@@ -36,35 +39,53 @@ const RecipeDetailPage: React.FC = () => {
 
   const handleIncreaseCookedNumber = async () => {
     const recipeDoc = doc(db, "recipes", id);
-    try{
-      await updateDoc(recipeDoc, {cookedNumber: recipeData.cookedNumber + 1});
+    if (!passwordCheck()) {
+      return;
+    }
+
+    try {
+      await updateDoc(recipeDoc, { cookedNumber: recipeData.cookedNumber + 1 });
 
       getRecipeData();
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
   };
 
-
   const handleShow = () => {
     if (!isLoad) {
-      return "Loading...";
+      return <Spinner animation="border"/>;
     } else if (isEditing) {
-      return <RecipeEdit stopEdit={handleEdit} recipeData={recipeData} id={id}/>;
+      return (
+        <div className="detailPage-content">
+          <h1>{recipeData.title} - úprava</h1>
+          <RecipeEdit stopEdit={handleEdit} recipeData={recipeData} id={id} />
+        </div>
+      );
     } else {
-      return <RecipeDetail id={id} recipeData={recipeData} key={id} startEdit={handleEdit} increaseCookedNumber={handleIncreaseCookedNumber} />;
+      return (
+        <div className="detailPage-content">
+          <h1>{recipeData.title}</h1>
+          <RecipeDetail
+            id={id}
+            recipeData={recipeData}
+            key={id}
+            startEdit={handleEdit}
+            increaseCookedNumber={handleIncreaseCookedNumber}
+          />
+        </div>
+      );
     }
   };
 
   return (
-    <div>
-      <h1>Stránka detailu receptu</h1>
-      {handleShow()}
-    </div>
+      <div>
+        {handleShow()}
+      </div>
   );
 };
 

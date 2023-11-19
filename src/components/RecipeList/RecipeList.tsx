@@ -3,13 +3,28 @@ import { useState, useEffect } from "react";
 import { IRecipe } from "../../interfaces/Recipe";
 /* import { IRecipeList } from "../../interfaces/RecipeList"; */
 
-import { collection, doc, getDocs, deleteDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
+import RecipeListSortBar from "../RecipeListSortBar/RecipeListSortBar.js";
+
+import passwordCheck from "../../HelperFunctions/passwordCheck.js";
+import sortItems from "../../HelperFunctions/sortFn.js";
 
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
+import "./style.css";
 
 interface IRecipeList extends IRecipe {
   id: string;
@@ -19,6 +34,10 @@ const RecipeList: React.FC = () => {
   const [recipes, setRecipes] = useState<IRecipeList[]>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [isAdding, setIsAdding] = useState<boolean>(false);
+
+  const [isSorted, setIsSorted] = useState<boolean>(false);
+  const [isAscSorted, setIsAscSorted] = useState<boolean>(false);
+  const [sortedCol, setSortedCol] = useState<string>("id");
 
   const recipesCollectionRef = collection(db, "recipes");
 
@@ -41,17 +60,25 @@ const RecipeList: React.FC = () => {
   }, []);
 
   const updateFavourite = async (recipe) => {
+    if (!passwordCheck()) {
+      return;
+    }
+
     const recipeDoc = doc(db, "recipes", recipe.id);
     try {
-      await updateDoc(recipeDoc, {isFavourite: !recipe.isFavourite})
-    
+      await updateDoc(recipeDoc, { isFavourite: !recipe.isFavourite });
+
       getRecipeList();
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const deleteRecipe = async (id: string) => {
+    if (!passwordCheck()) {
+      return;
+    }
+
     const recipeDoc = doc(db, "recipes", id);
     try {
       await deleteDoc(recipeDoc);
@@ -63,19 +90,59 @@ const RecipeList: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="recipeList-container">
       <h1>Seznam receptů</h1>
+      {isLoad ? (
+        <RecipeListSortBar
+          sortItems={sortItems}
+          recipes={recipes}
+          setRecipes={setRecipes}
+          isSorted={isSorted}
+          setIsSorted={setIsSorted}
+          isAscSorted={isAscSorted}
+          setIsAscSorted={setIsAscSorted}
+          sortedCol={sortedCol}
+          setSortedCol={setSortedCol}
+        />
+      ) : null}
+      {isAdding ? null : (
+        <Button
+          onClick={() => setIsAdding(true)}
+          className="recipeList-addButton"
+        >
+          Přidat recept
+        </Button>
+      )}
+      <Container>
+        <Row
+          xs="auto"
+          sm="auto"
+          md="auto"
+          lg="auto"
+          xl="auto"
+          xxl="auto"
+          className="justify-content-center"
+        >
+          {isLoad ? (
+            recipes.map((recipe) => {
+              return (
+                <Col key={recipe.id}>
+                  <Recipe
+                    recipeData={recipe}
+                    deleteRecipe={() => deleteRecipe(recipe.id)}
+                    updateRecipeFavourite={() => updateFavourite(recipe)}
+                  />
+                </Col>
+              );
+            })
+          ) : (
+            <Spinner animation="border" />
+          )}
+        </Row>
+      </Container>
       {isAdding ? (
         <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList} />
       ) : null}
-      {isLoad
-        ? recipes.map((recipe) => {
-            return <Recipe recipeData={recipe} key={recipe.id} deleteRecipe={() => deleteRecipe(recipe.id)} updateRecipeFavourite={() => updateFavourite(recipe)}/>;
-          })
-        : "Loading"}
-      {isAdding ? null : (
-        <Button onClick={() => setIsAdding(true)}>Přidat recept</Button>
-      )}
     </div>
   );
 };

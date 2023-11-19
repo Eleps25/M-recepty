@@ -29,15 +29,15 @@ const HomeRecipe: React.FC<Props> = (props) => {
       className="myCard-container text-center"
       bg={isFavourite ? "warning" : null}
     >
-      <Card.Img src={image} variant="bottom" />
+      <Card.Img src={image} variant="top" />
       {
         <Card.Header>
           <Card.Title>{title}</Card.Title>
         </Card.Header>
       }
       <Card.Body>
-        <Card.Text>Strana: {page}</Card.Text>{" "}
         <Card.Text>Kniha: {book}</Card.Text>
+        <Card.Text>Strana: {page}</Card.Text>
         <Card.Body>
           <Card.Text>Počet vaření: {cookedNumber}</Card.Text>
           <Card.Text>Náročnost: {difficulty}</Card.Text>
