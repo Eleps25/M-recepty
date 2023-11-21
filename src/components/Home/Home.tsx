@@ -68,7 +68,7 @@ const Home: React.FC = () => {
             <Spinner animation="border" />
           </div>
         )}
-        {isLoad ? (
+        {isLoad && imagesIsLoad ? (
           <div className="home-randomRecipe">
             <HomeRandomRecipe listData={recipes} imageListSrc={imageList} />
           </div>

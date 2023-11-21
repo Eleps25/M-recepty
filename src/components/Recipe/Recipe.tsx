@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { IRecipeList } from "../../interfaces/RecipeList";
-import image from "../../tmpImgs/food2.jpg";
+/* import image from "../../tmpImgs/food2.jpg"; */
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -11,6 +11,7 @@ interface Props {
   recipeData: IRecipeList;
   deleteRecipe: () => void;
   updateRecipeFavourite: () => void;
+  imgSrc: string;
 }
 
 const Recipe: React.FC<Props> = (props) => {
@@ -25,9 +26,10 @@ const Recipe: React.FC<Props> = (props) => {
     isFavourite,
     page,
   } = props.recipeData;
+
   return (
     <Card className="text-center myRecipeCard-container" bg={isFavourite ? "warning" : null}>
-      <Card.Img src={image} />
+      <Card.Img src={props.imgSrc} variant="top" className="card-image"/>
       <Card.Header>
         <Card.Title>{title}</Card.Title>
       </Card.Header>

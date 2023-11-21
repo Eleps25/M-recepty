@@ -11,13 +11,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./style.css";
 
-import image from "../../tmpImgs/food3.jpg";
-
 interface Props {
   id: string | undefined;
   recipeData: IRecipe;
   startEdit: () => void;
   increaseCookedNumber: () => void;
+  imageSrc: string;
 }
 
 const RecipeDetail: React.FC<Props> = (props) => {
@@ -63,7 +62,7 @@ const RecipeDetail: React.FC<Props> = (props) => {
         <Container>
           <Row className="justify-content-center">
             <Col md={8}>
-              <Image src={image} fluid />
+              <Image src={props.imageSrc} fluid />
             </Col>
           </Row>
         </Container>
@@ -84,7 +83,7 @@ const RecipeDetail: React.FC<Props> = (props) => {
             <h3>Doba přípravy: {prepareTime} minut</h3>
             <h3>Připraveno: {cookedNumber}x</h3>
           </div>
-          <Image src={image} className="recipeDetail-big-image" />
+          <Image src={props.imageSrc} className="recipeDetail-big-image" />
         </div>
         <div className="recipeDetail-big-ingredients-container">
           <h2>Ingredience: </h2>
@@ -119,7 +118,7 @@ const RecipeDetail: React.FC<Props> = (props) => {
               })}
             </ul>
           </div>
-          <Image src={image} className="recipeDetail-big-all-image" />
+          <Image src={props.imageSrc} className="recipeDetail-big-all-image"/>
         </div>
       </section>
     );

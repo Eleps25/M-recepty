@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { storage } from "../../config/firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 import { IRecipe } from "../../interfaces/Recipe";
 
@@ -19,8 +21,11 @@ const RecipeDetailPage: React.FC = () => {
   const [recipeData, setRecipeData] = useState<IRecipe>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [imageList, setImageList] = useState([]);
+  const [imagesIsLoad, setImagesIsLoad] = useState(false);
 
   const docRef: any = doc(db, "recipes", id);
+  const imageListRef = ref(storage, "recipes/");
 
   const getRecipeData = async () => {
     try {
@@ -33,8 +38,20 @@ const RecipeDetailPage: React.FC = () => {
     }
   };
 
+  const getImageList = () => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, url]);
+          setImagesIsLoad(true);
+        });
+      });
+    });
+  };
+
   useEffect(() => {
     getRecipeData();
+    getImageList();
   }, []);
 
   const handleIncreaseCookedNumber = async () => {
@@ -57,8 +74,8 @@ const RecipeDetailPage: React.FC = () => {
   };
 
   const handleShow = () => {
-    if (!isLoad) {
-      return <Spinner animation="border"/>;
+    if (!isLoad && !imagesIsLoad) {
+      return <Spinner animation="border" />;
     } else if (isEditing) {
       return (
         <div className="detailPage-content">
@@ -67,6 +84,11 @@ const RecipeDetailPage: React.FC = () => {
         </div>
       );
     } else {
+      const recipeImageSrcIndex = imageList.findIndex((element) =>
+        element.includes(id)
+      );
+      const recipeImageSrc = imageList[recipeImageSrcIndex];
+
       return (
         <div className="detailPage-content">
           <h1>{recipeData.title}</h1>
@@ -76,17 +98,14 @@ const RecipeDetailPage: React.FC = () => {
             key={id}
             startEdit={handleEdit}
             increaseCookedNumber={handleIncreaseCookedNumber}
+            imageSrc={recipeImageSrc}
           />
         </div>
       );
     }
   };
 
-  return (
-      <div>
-        {handleShow()}
-      </div>
-  );
+  return <div>{handleShow()}</div>;
 };
 
 export default RecipeDetailPage;

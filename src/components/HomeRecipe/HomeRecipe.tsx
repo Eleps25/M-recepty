@@ -29,7 +29,7 @@ const HomeRecipe: React.FC<Props> = (props) => {
       className="myCard-container text-center"
       bg={isFavourite ? "warning" : null}
     >
-      <Card.Img src={props.imgSrc} variant="top" />
+      <Card.Img src={props.imgSrc} variant="top" className="recipe-image" />
       {
         <Card.Header>
           <Card.Title>{title}</Card.Title>

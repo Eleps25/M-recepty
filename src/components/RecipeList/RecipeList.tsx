@@ -11,10 +11,12 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { storage } from "../../config/firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 import Recipe from "../Recipe/Recipe";
 import RecipeAddForm from "../RecipeAddForm/RecipeAddForm";
-import RecipeListSortBar from "../../components/RecipeListSort/RecipeListSortBar.js"
+import RecipeListSortBar from "../../components/RecipeListSort/RecipeListSortBar.js";
 
 import passwordCheck from "../../HelperFunctions/passwordCheck.js";
 import sortItems from "../../HelperFunctions/sortFn.js";
@@ -34,12 +36,15 @@ const RecipeList: React.FC = () => {
   const [recipes, setRecipes] = useState<IRecipeList[]>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [imageList, setImageList] = useState([]);
+  const [imagesIsLoad, setImagesIsLoad] = useState(false);
 
   const [isSorted, setIsSorted] = useState<boolean>(false);
   const [isAscSorted, setIsAscSorted] = useState<boolean>(false);
   const [sortedCol, setSortedCol] = useState<string>("id");
 
   const recipesCollectionRef = collection(db, "recipes");
+  const imageListRef = ref(storage, "recipes/");
 
   const getRecipeList = async () => {
     try {
@@ -55,8 +60,20 @@ const RecipeList: React.FC = () => {
     }
   };
 
+  const getImageList = () => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, url]);
+          setImagesIsLoad(true);
+        });
+      });
+    });
+  };
+
   useEffect(() => {
     getRecipeList();
+    getImageList();
   }, []);
 
   const updateFavourite = async (recipe) => {
@@ -92,7 +109,7 @@ const RecipeList: React.FC = () => {
   return (
     <div className="recipeList-container">
       <h1>Seznam receptů</h1>
-      {isLoad ? (
+      {isLoad && imagesIsLoad ? (
         <RecipeListSortBar
           sortItems={sortItems}
           recipes={recipes}
@@ -123,14 +140,19 @@ const RecipeList: React.FC = () => {
           xxl="auto"
           className="justify-content-center"
         >
-          {isLoad ? (
+          {isLoad && imagesIsLoad ? (
             recipes.map((recipe) => {
+              const recipeImageSrcIndex = imageList.findIndex(
+                (element) => element.includes(recipe.id)
+              );
+              const recipeImageSrc = imageList[recipeImageSrcIndex];
               return (
                 <Col key={recipe.id}>
                   <Recipe
                     recipeData={recipe}
                     deleteRecipe={() => deleteRecipe(recipe.id)}
                     updateRecipeFavourite={() => updateFavourite(recipe)}
+                    imgSrc={recipeImageSrc}
                   />
                 </Col>
               );
