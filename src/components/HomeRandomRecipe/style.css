@@ -1,5 +1,5 @@
 .randomRecipe-container {
-    padding: 0em 1em 1em 1em;
+    padding: 1em 0em;
     margin: 0em 1em;
     display: flex;
     flex-direction: column;
