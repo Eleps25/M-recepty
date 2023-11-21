@@ -6,10 +6,9 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./style.css";
 
-import image from "../../tmpImgs/food1.jpg";
-
 interface Props {
   recipeData: IRecipeList;
+  imgSrc: string;
 }
 
 const HomeRecipe: React.FC<Props> = (props) => {
@@ -24,12 +23,13 @@ const HomeRecipe: React.FC<Props> = (props) => {
     isFavourite,
     page,
   } = props.recipeData;
+
   return (
     <Card
       className="myCard-container text-center"
       bg={isFavourite ? "warning" : null}
     >
-      <Card.Img src={image} variant="top" />
+      <Card.Img src={props.imgSrc} variant="top" className="recipe-image" />
       {
         <Card.Header>
           <Card.Title>{title}</Card.Title>

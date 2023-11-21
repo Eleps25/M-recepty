@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
-/* import HomeInfo from "../HomeInfo/HomeInfo";
- */ import HomeMostPrepared from "../HomeMostPrepared/HomeMostPrepared";
+import { storage } from "../../config/firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+
+import HomeMostPrepared from "../HomeMostPrepared/HomeMostPrepared";
 import HomeRandomRecipe from "../HomeRandomRecipe/HomeRandomRecipe";
 
 import { IRecipeList } from "../../interfaces/RecipeList";
@@ -15,8 +17,11 @@ import "./style.css";
 const Home: React.FC = () => {
   const [recipes, setRecipes] = useState<IRecipeList[]>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
+  const [imageList, setImageList] = useState([]);
+  const [imagesIsLoad, setImagesIsLoad] = useState(false);
 
   const recipesCollectionRef = collection(db, "recipes");
+  const imageListRef = ref(storage, "recipes/");
 
   const getRecipeList = async () => {
     try {
@@ -32,8 +37,20 @@ const Home: React.FC = () => {
     }
   };
 
+  const getImageList = () => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, url]);
+          setImagesIsLoad(true);
+        });
+      });
+    });
+  };
+
   useEffect(() => {
     getRecipeList();
+    getImageList();
   }, []);
 
   return (
@@ -42,18 +59,18 @@ const Home: React.FC = () => {
       {/*       <HomeInfo />
        */}
       <section className="home-recipes">
-        {isLoad ? (
+        {isLoad && imagesIsLoad ? (
           <div className="home-mostPrepared">
-            <HomeMostPrepared listData={recipes} />
+            <HomeMostPrepared listData={recipes} imageListSrc={imageList} />
           </div>
         ) : (
           <div className="home-spinner">
             <Spinner animation="border" />
           </div>
         )}
-        {isLoad ? (
+        {isLoad && imagesIsLoad ? (
           <div className="home-randomRecipe">
-            <HomeRandomRecipe listData={recipes} />
+            <HomeRandomRecipe listData={recipes} imageListSrc={imageList} />
           </div>
         ) : (
           <div className="home-spinner">

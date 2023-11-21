@@ -1,9 +1,13 @@
 .myRecipeCard-container {
-    width: 13rem; 
-    margin: 0.5em 0.5em;
+  width: 16rem;
+  margin: 0.5em 0.5em;
 }
 
 .cardFooter-buttons {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-image {
+  max-height: 170px;
 }
