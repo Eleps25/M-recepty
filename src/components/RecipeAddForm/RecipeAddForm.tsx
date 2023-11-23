@@ -6,10 +6,13 @@ import { db } from "../../config/firebase";
 import passwordCheck from "../../HelperFunctions/passwordCheck.js";
 
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import "./style.css";
 
 interface Props {
   toggleAdd: (arg: boolean) => void;
   getList: () => void;
+  setShowAddedModal: (value: React.SetStateAction<boolean>) => void;
 }
 
 const RecipeAddForm: React.FC<Props> = (props) => {
@@ -47,6 +50,7 @@ const RecipeAddForm: React.FC<Props> = (props) => {
       });
       props.toggleAdd(false);
       getList();
+      props.setShowAddedModal(true);
     } catch (err) {
       throw new Error(err);
     }
@@ -54,58 +58,63 @@ const RecipeAddForm: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <h1>Fromulář přidání nového receptu</h1>
-      <form onSubmit={addRecipe}>
-        <label htmlFor="title">Název:</label>
-        <input
-          id="title"
-          name="title"
-          type="text"
-          required
-          onChange={(e) => setNewTitle(e.target.value)}
-        />
-        <label htmlFor="book">Kniha:</label>
-        <input
-          id="book"
-          name="book"
-          type="text"
-          required
-          onChange={(e) => setNewBook(e.target.value)}
-        />
-        <label htmlFor="page">Strana:</label>
-        <input
+      <Form onSubmit={addRecipe}>
+        <Form.Group>
+          <Form.Label htmlFor="title">Název:</Form.Label>
+          <Form.Control
+            id="title"
+            name="title"
+            type="text"
+            required
+            onChange={(e) => setNewTitle(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="book">Kniha:</Form.Label>
+          <Form.Control
+            id="book"
+            name="book"
+            type="text"
+            required
+            onChange={(e) => setNewBook(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Label htmlFor="page">Strana:</Form.Label>
+        <Form.Control
           id="page"
           name="page"
           type="number"
           required
           onChange={(e) => setNewPage(Number(e.target.value))}
         />
-        <label htmlFor="mealType">Typ:</label>
-        <input
+        <Form.Label htmlFor="mealType">Typ:</Form.Label>
+        <Form.Control
           id="mealType"
           name="mealType"
           type="text"
           required
           onChange={(e) => setNewMealType(e.target.value)}
         />
-        <label htmlFor="difficulty">Náročnost:</label>
-        <input
+        <Form.Label htmlFor="difficulty">Náročnost:</Form.Label>
+        <Form.Control
           id="difficulty"
           name="difficulty"
           type="text"
           required
           onChange={(e) => setNewDifficulty(e.target.value)}
         />
-        <label htmlFor="prepareTime">Doba přípravy (min):</label>
-        <input
+        <Form.Label htmlFor="prepareTime">Doba přípravy (min):</Form.Label>
+        <Form.Control
           id="prepareTime"
           name="prepareTime"
           type="number"
           required
           onChange={(e) => setNewPrepareTime(Number(e.target.value))}
         />
-        <label htmlFor="ingredients">Suroviny (oddělit čárkou):</label>
-        <input
+        <Form.Label htmlFor="ingredients">
+          Suroviny (oddělit čárkou):
+        </Form.Label>
+        <Form.Control
           id="ingredients"
           name="ingredients"
           type="textarea"
@@ -114,13 +123,23 @@ const RecipeAddForm: React.FC<Props> = (props) => {
             setIngredients(e.target.value);
           }}
         />
-        <Button variant="success" type="submit">
-          Přidat
-        </Button>
-      </form>
-      <Button variant="danger" onClick={() => props.toggleAdd(false)}>
-        Zpět
-      </Button>
+        <section className="addRecipeForm-buttons">
+          <Button
+            variant="success"
+            type="submit"
+            className="addRecipeForm-button"
+          >
+            Přidat
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => props.toggleAdd(false)}
+            className="addRecipeForm-button"
+          >
+            Zpět
+          </Button>
+        </section>
+      </Form>
     </div>
   );
 };

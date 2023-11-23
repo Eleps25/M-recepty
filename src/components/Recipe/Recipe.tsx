@@ -28,10 +28,37 @@ const Recipe: React.FC<Props> = (props) => {
   } = props.recipeData;
 
   return (
-    <Card className="text-center myRecipeCard-container" bg={isFavourite ? "warning" : null}>
-      <Card.Img src={props.imgSrc} variant="top" className="card-image"/>
+    <Card
+      className="text-center myRecipeCard-container"
+      bg={isFavourite ? "warning" : null}
+    >
+      <Card.Img src={props.imgSrc} variant="top" className="card-image" />
       <Card.Header>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title className="myRecipeCard-title">
+          {title}
+          <label htmlFor={id}>
+            {isFavourite ? (
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/1/14/Font_Awesome_5_solid_star.svg"
+                width="20"
+                height="20"
+              />
+            ) : (
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Star_empty_font_awesome.svg"
+                width="20"
+                height="20"
+              />
+            )}
+          </label>
+          <input
+            id={id}
+            type="checkbox"
+            checked={isFavourite}
+            onChange={props.updateRecipeFavourite}
+            className="myRecipeCard-favourite"
+          />
+        </Card.Title>
       </Card.Header>
       <Card.Body>
         <Card.Text>Náročnost: {difficulty}</Card.Text>

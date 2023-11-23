@@ -26,6 +26,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
+import Modal from "react-bootstrap/Modal";
 import "./style.css";
 
 interface IRecipeList extends IRecipe {
@@ -42,6 +43,9 @@ const RecipeList: React.FC = () => {
   const [isSorted, setIsSorted] = useState<boolean>(false);
   const [isAscSorted, setIsAscSorted] = useState<boolean>(false);
   const [sortedCol, setSortedCol] = useState<string>("id");
+
+  const [showAddedModal, setShowAddedModal] = useState<boolean>(false);
+  const [showDeletedModal, setShowDeletedModal] = useState<boolean>(false);
 
   const recipesCollectionRef = collection(db, "recipes");
   const imageListRef = ref(storage, "recipes/");
@@ -101,6 +105,7 @@ const RecipeList: React.FC = () => {
       await deleteDoc(recipeDoc);
 
       getRecipeList();
+      setShowDeletedModal(true);
     } catch (err) {
       console.log(err);
     }
@@ -142,8 +147,8 @@ const RecipeList: React.FC = () => {
         >
           {isLoad && imagesIsLoad ? (
             recipes.map((recipe) => {
-              const recipeImageSrcIndex = imageList.findIndex(
-                (element) => element.includes(recipe.id)
+              const recipeImageSrcIndex = imageList.findIndex((element) =>
+                element.includes(recipe.id)
               );
               const recipeImageSrc = imageList[recipeImageSrcIndex];
               return (
@@ -162,9 +167,60 @@ const RecipeList: React.FC = () => {
           )}
         </Row>
       </Container>
-      {isAdding ? (
-        <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList} />
-      ) : null}
+
+      <Modal
+        show={isAdding}
+        onHide={() => setIsAdding(false)}
+        backdrop="static"
+        keyboard={false}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton className="modal-add">
+          <Modal.Title>Přidat nový recept</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <RecipeAddForm toggleAdd={setIsAdding} getList={getRecipeList} setShowAddedModal={setShowAddedModal} />
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+          show={showAddedModal}
+          onHide={() => setShowAddedModal(false)}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton className="modal-add">
+            <Modal.Title>Úspěch</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Recept úspěšně uložen</Modal.Body>
+          <Modal.Footer>
+            <Button variant="success" onClick={() => setShowAddedModal(false)}>
+              Rozumím
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+      <Modal
+          show={showDeletedModal}
+          onHide={() => setShowDeletedModal(false)}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+      <Modal.Header closeButton className="modal-delete">
+            <Modal.Title>Info</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Recept smazán</Modal.Body>
+          <Modal.Footer>
+            <Button variant="info" onClick={() => setShowDeletedModal(false)}>
+              Rozumím
+            </Button>
+          </Modal.Footer>
+        </Modal>
     </div>
   );
 };
