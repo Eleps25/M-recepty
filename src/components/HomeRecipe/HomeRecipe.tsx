@@ -32,7 +32,30 @@ const HomeRecipe: React.FC<Props> = (props) => {
       <Card.Img src={props.imgSrc} variant="top" className="recipe-image" />
       {
         <Card.Header>
-          <Card.Title>{title}</Card.Title>
+          <Card.Title>
+            {title}{" "}
+            <label htmlFor={id}>
+              {isFavourite ? (
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/1/14/Font_Awesome_5_solid_star.svg"
+                  width="20"
+                  height="20"
+                />
+              ) : (
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Star_empty_font_awesome.svg"
+                  width="20"
+                  height="20"
+                />
+              )}
+            </label>
+            <input
+              id={id}
+              type="checkbox"
+              checked={isFavourite}
+              className="homeRecipe-favourite"
+            />
+          </Card.Title>
         </Card.Header>
       }
       <Card.Body>

@@ -11,3 +11,12 @@
 .card-image {
   max-height: 170px;
 }
+
+.myRecipeCard-title {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.myRecipeCard-favourite {
+  display: none;
+}
