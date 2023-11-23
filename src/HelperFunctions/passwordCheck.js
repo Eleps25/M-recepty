@@ -4,7 +4,7 @@ const passwordCheck = () => {
       alert("Heslo nesmí být prázdné");
       return false;
     }
-    if(password !== "Test"){
+    if(password !== import.meta.env.VITE_PASS){
       alert("špatné heslo");
       return false;
     }
