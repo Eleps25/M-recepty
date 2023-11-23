@@ -70,7 +70,7 @@ const RecipeDetail: React.FC<Props> = (props) => {
     );
   };
 
-  const showBig = () => {
+/*   const showBig = () => {
     return (
       <section className="recipeDetail-big-container">
         <div className="recipeDetail-big-info">
@@ -95,7 +95,7 @@ const RecipeDetail: React.FC<Props> = (props) => {
         </div>
       </section>
     );
-  };
+  }; */
 
   const showBigAll = () => {
     return (
