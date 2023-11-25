@@ -3,10 +3,7 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
-interface BasketItem {
-  name: string;
-  id: string;
-}
+import { BasketItem } from "../../interfaces/BasketItem";
 
 const BasketPage: React.FC = () => {
   const [basketList, setBasketList] = useState<BasketItem[]>();
