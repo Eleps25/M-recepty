@@ -1,6 +1,6 @@
-import { BasketItem } from "../../interfaces/BasketItem";
+import { IBasketItem } from "../../interfaces/BasketItem";
 
-const BasketItem: React.FC<BasketItem> = (props) => {
+const BasketItem: React.FC<IBasketItem> = (props) => {
     const {name, id} = props;
     return (
         <div>

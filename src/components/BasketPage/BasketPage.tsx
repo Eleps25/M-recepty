@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
-import { BasketItem } from "../../interfaces/BasketItem";
+import BasketList from "../BasketList/BasketList";
+
+import { IBasketItem } from "../../interfaces/BasketItem";
 
 const BasketPage: React.FC = () => {
-  const [basketList, setBasketList] = useState<BasketItem[]>();
+  const [basketList, setBasketList] = useState<IBasketItem[]>();
   const [isLoad, setIsLoad] = useState<boolean>(false);
 
   const basketCollectionRef = collection(db, "basket");
@@ -35,11 +37,7 @@ const BasketPage: React.FC = () => {
     <div>
         <h1>Basket Page</h1>
         
-        {isLoad ?
-        basketList.map(item => {
-            // placeholder for BasketList component
-            return( <h2>{item.name}</h2>)
-        }): "Loading"}
+        {isLoad ? <BasketList basketItems={basketList}/> : "Loading"}
     </div>
   );
 };
