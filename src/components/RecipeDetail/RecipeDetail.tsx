@@ -2,7 +2,14 @@ import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../config/firebase";
+
+import passwordCheck from "../../HelperFunctions/passwordCheck.js";
+
 import { IRecipe } from "../../interfaces/Recipe";
+
+import RecipeDetailIngredient from "../RecipeDetailIngredient/RecipeDetailIngredient";
 
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
@@ -31,6 +38,8 @@ const RecipeDetail: React.FC<Props> = (props) => {
     page,
   } = props.recipeData;
 
+  const basketCollectionRef = collection(db, "basket");
+
   useEffect(() => {
     function handleResize() {
       setWindowWidth(window.innerWidth);
@@ -42,6 +51,21 @@ const RecipeDetail: React.FC<Props> = (props) => {
       window.removeEventListener("resize", handleResize);
     };
   });
+
+  const addIngredient = async (name: string) => {
+    if (!passwordCheck()) {
+      return;
+    }
+
+    try {
+      console.log("Added ", name)
+      await addDoc(basketCollectionRef, {
+          name: name
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
 
   const showSmall = () => {
     return (
@@ -56,7 +80,13 @@ const RecipeDetail: React.FC<Props> = (props) => {
         <h2>Ingredience: </h2>
         <ul>
           {ingredients.map((ingredient) => {
-            return <li key={ingredient}>{ingredient}</li>;
+            return (
+              <RecipeDetailIngredient
+                ingredientName={ingredient}
+                key={ingredient}
+                addIngredient={(() => addIngredient(ingredient))}
+              />
+            );
           })}
         </ul>
         <Container>
@@ -69,33 +99,6 @@ const RecipeDetail: React.FC<Props> = (props) => {
       </section>
     );
   };
-
-/*   const showBig = () => {
-    return (
-      <section className="recipeDetail-big-container">
-        <div className="recipeDetail-big-info">
-          <div className="recipeDetail-big-informations">
-            <h2>
-              Umístění: {book} - str. {page}
-            </h2>
-            <h3>Typ: {mealType}</h3>
-            <h3>Náročnost: {difficulty}</h3>
-            <h3>Doba přípravy: {prepareTime} minut</h3>
-            <h3>Připraveno: {cookedNumber}x</h3>
-          </div>
-          <Image src={props.imageSrc} className="recipeDetail-big-image" />
-        </div>
-        <div className="recipeDetail-big-ingredients-container">
-          <h2>Ingredience: </h2>
-          <ul>
-            {ingredients.map((ingredient) => {
-              return <li key={ingredient}>{ingredient}</li>;
-            })}
-          </ul>
-        </div>
-      </section>
-    );
-  }; */
 
   const showBigAll = () => {
     return (
@@ -114,11 +117,17 @@ const RecipeDetail: React.FC<Props> = (props) => {
             <h2>Ingredience: </h2>
             <ul>
               {ingredients.map((ingredient) => {
-                return <li key={ingredient}>{ingredient}</li>;
+                return (
+                  <RecipeDetailIngredient
+                    ingredientName={ingredient}
+                    key={ingredient}
+                    addIngredient={(() => addIngredient(ingredient))}
+                  />
+                );
               })}
             </ul>
           </div>
-          <Image src={props.imageSrc} className="recipeDetail-big-all-image"/>
+          <Image src={props.imageSrc} className="recipeDetail-big-all-image" />
         </div>
       </section>
     );

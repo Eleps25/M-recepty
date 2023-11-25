@@ -1,4 +1,4 @@
-import { useState } from "react";
+/* import { useState } from "react";*/
 
 import { IBasketItem } from "../../interfaces/BasketItem";
 
@@ -9,15 +9,15 @@ interface Props {
 }
 
 const BasketList: React.FC<Props> = (props) => {
-  const [basketItems, setBasketItems] = useState<IBasketItem[]>(
+/*   const [basketItems, setBasketItems] = useState<IBasketItem[]>(
     props.basketItems
-  );
+  ); */
 
   return (
     <div>
       <h2>Basket List</h2>
-      {basketItems.map((item) => {
-        return <BasketItem id={item.id} name={item.name} />;
+      {props.basketItems.map((item) => {
+        return <BasketItem key={item.id} id={item.id} name={item.name} />;
       })}
     </div>
   );
