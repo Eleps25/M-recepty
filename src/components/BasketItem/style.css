@@ -1,0 +1,7 @@
+.item-inBasket {
+    background-color: green;
+}
+
+.item-notInBasket {
+    background-color: aqua;
+}

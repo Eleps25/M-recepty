@@ -1,12 +1,21 @@
-import { IBasketItem } from "../../interfaces/BasketItem";
+import Button from "react-bootstrap/Button";
+import "./style.css";
 
-const BasketItem: React.FC<IBasketItem> = (props) => {
-    const {name, id} = props;
+interface Props {
+    name: string;
+    id: string;
+    inBasket: boolean;
+    deleteItem: (id: any) => Promise<void>;
+    updateCurrBasket: (item: any) => void;
+}
+
+const BasketItem: React.FC<Props> = (props) => {
+    const {name, inBasket} = props;
     return (
-        <div>
-            <h2>Basket Item</h2>
-            <p>name: {name}</p>
-            <p>id: {id}</p>
+        <div className={inBasket ? "item-inBasket" : "item-notInBasket"}>
+            <li>{name}</li>
+            <Button variant="success" onClick={props.deleteItem}>Koupeno</Button>
+            <Button onClick={props.updateCurrBasket}>{inBasket ? "V košíku" : "Do košíku"}</Button>
         </div>
     )
 };
