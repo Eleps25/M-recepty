@@ -33,6 +33,11 @@
 }
 
 @media (max-width: 992px) {
+  .recipeEdit-container {
+    margin: 2em;
+    width: auto;
+  }
+  
   .recipeEdit-buttonsContainer {
     flex-direction: column;
   }
@@ -40,5 +45,9 @@
   .recipeEdit-FuncButtons {
     width: 100%;
     margin: 0.3em 0em;
+}
+
+.recipeEidt-ingredientsButton {
+  width: 40%;
 }
 }

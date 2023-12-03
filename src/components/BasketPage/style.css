@@ -1,0 +1,10 @@
+.basketPage-header {
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.basketPage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

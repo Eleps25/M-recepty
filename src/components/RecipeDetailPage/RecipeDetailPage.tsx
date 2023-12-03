@@ -105,7 +105,7 @@ const RecipeDetailPage: React.FC = () => {
     }
   };
 
-  return <div>{handleShow()}</div>;
+  return handleShow();
 };
 
 export default RecipeDetailPage;

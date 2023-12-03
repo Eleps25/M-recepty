@@ -1,0 +1,19 @@
+.BasketList-container {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 75vw;
+    margin: 2em;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.BasketList-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3em;
+}
+
+.BasketList-addButton {
+    width: 100%;
+    margin: 2em 0em;
+}
