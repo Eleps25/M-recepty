@@ -75,7 +75,7 @@ const BasketList: React.FC<Props> = (props) => {
           onClick={() => setIsAdding(true)}
           className="BasketList-addButton"
         >
-          Přidat recept
+          Přidat novou položku
         </Button>
       )}
       <Modal
