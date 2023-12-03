@@ -96,6 +96,7 @@ const BasketPage: React.FC = () => {
           deleteItem={deleteBasketItem}
           deleteBasket={deleteBasket}
           postCurrentBasket={postCurrentBasket}
+          getBasketList={getBasketList}
         />
       );
     }
