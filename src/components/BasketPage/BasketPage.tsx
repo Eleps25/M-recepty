@@ -14,7 +14,7 @@ import passwordCheck from "../../HelperFunctions/passwordCheck.js";
 import BasketList from "../BasketList/BasketList";
 
 import { IBasketItem } from "../../interfaces/BasketItem";
-import { Button } from "react-bootstrap";
+import "./style.css";
 
 const BasketPage: React.FC = () => {
   const [basketList, setBasketList] = useState<IBasketItem[]>();
@@ -69,8 +69,8 @@ const BasketPage: React.FC = () => {
     getBasketList();
   };
 
-  const postCurrentBasket =  async (basketList: IBasketItem[]) => {
-    if(!passwordCheck()) {
+  const postCurrentBasket = async (basketList: IBasketItem[]) => {
+    if (!passwordCheck()) {
       return;
     }
 
@@ -94,6 +94,7 @@ const BasketPage: React.FC = () => {
         <BasketList
           basketItems={basketList}
           deleteItem={deleteBasketItem}
+          deleteBasket={deleteBasket}
           postCurrentBasket={postCurrentBasket}
         />
       );
@@ -107,9 +108,9 @@ const BasketPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="basketPage-container">
+      <h2 className="basketPage-header">Co nakoupit?</h2>
       {handleShowList()}
-      <Button onClick={deleteBasket} variant="success">Vše nakoupeno</Button>
     </div>
   );
 };
