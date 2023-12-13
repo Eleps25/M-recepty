@@ -62,14 +62,20 @@ const BasketList: React.FC<Props> = (props) => {
           );
         })}
       </div>
-      <div className="BasketList-buttons">
-        <Button onClick={props.deleteBasket} variant="success" className="me-2">
-          Vše nakoupeno
-        </Button>
-        <Button onClick={() => props.postCurrentBasket(activeBasket)}>
-          Košík nakoupen
-        </Button>
-      </div>
+      {props.basketItems.length == 0 ? null : (
+        <div className="BasketList-buttons">
+          <Button
+            onClick={props.deleteBasket}
+            variant="success"
+            className="me-2"
+          >
+            Vše nakoupeno
+          </Button>
+          <Button onClick={() => props.postCurrentBasket(activeBasket)}>
+            Košík nakoupen
+          </Button>
+        </div>
+      )}
       {isAdding ? null : (
         <Button
           onClick={() => setIsAdding(true)}
@@ -90,28 +96,32 @@ const BasketList: React.FC<Props> = (props) => {
           <Modal.Title>Přidat novou položku</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <BasketAddItemForm toggleAdd={setIsAdding} getList={props.getBasketList} setShowAddedModal={setShowAddedModal} />
+          <BasketAddItemForm
+            toggleAdd={setIsAdding}
+            getList={props.getBasketList}
+            setShowAddedModal={setShowAddedModal}
+          />
         </Modal.Body>
       </Modal>
 
       <Modal
-          show={showAddedModal}
-          onHide={() => setShowAddedModal(false)}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton className="modal-add">
-            <Modal.Title>Úspěch</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Položka úspěšně uložena</Modal.Body>
-          <Modal.Footer>
-            <Button variant="success" onClick={() => setShowAddedModal(false)}>
-              Rozumím
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        show={showAddedModal}
+        onHide={() => setShowAddedModal(false)}
+        backdrop="static"
+        keyboard={false}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton className="modal-add">
+          <Modal.Title>Úspěch</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Položka úspěšně uložena</Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={() => setShowAddedModal(false)}>
+            Rozumím
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

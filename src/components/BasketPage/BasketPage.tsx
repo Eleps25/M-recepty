@@ -87,9 +87,6 @@ const BasketPage: React.FC = () => {
 
   const handleShowList = () => {
     if (isLoad) {
-      if (basketList.length === 0) {
-        return "Vše nakoupeno";
-      }
       return (
         <BasketList
           basketItems={basketList}
