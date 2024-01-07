@@ -47,6 +47,7 @@ const RecipeAddForm: React.FC<Props> = (props) => {
           .map((ingredient) => ingredient.trim()),
         cookedNumber: 0,
         isFavourite: false,
+        slowCooker: false
       });
       props.toggleAdd(false);
       getList();
