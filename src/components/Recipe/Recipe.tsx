@@ -11,6 +11,7 @@ interface Props {
   recipeData: IRecipeList;
   deleteRecipe: () => void;
   updateRecipeFavourite: () => void;
+  updateSlowCooker: () => void;
   imgSrc: string;
 }
 
@@ -25,6 +26,7 @@ const Recipe: React.FC<Props> = (props) => {
     id,
     isFavourite,
     page,
+    slowCooker
   } = props.recipeData;
 
   return (
@@ -79,6 +81,14 @@ const Recipe: React.FC<Props> = (props) => {
             type="checkbox"
             checked={isFavourite}
             onChange={props.updateRecipeFavourite}
+          />
+        </Card.Text>
+        <Card.Text>
+        Pomalý hrnec:{" "}
+          <input
+            type="checkbox"
+            checked={slowCooker}
+            onChange={props.updateSlowCooker}
           />
         </Card.Text>
       </Card.Body>

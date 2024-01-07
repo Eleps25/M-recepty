@@ -8,5 +8,6 @@ export interface IRecipeList {
     cookedNumber: number,
     isFavourite: boolean,
     ingredients: string[],
+    slowCooker: boolean,
     id: string
 }
