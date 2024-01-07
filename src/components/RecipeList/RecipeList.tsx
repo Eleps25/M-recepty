@@ -95,6 +95,21 @@ const RecipeList: React.FC = () => {
     }
   };
 
+  const updateSlowCooker = async (recipe) => {
+    if (!passwordCheck()) {
+      return;
+    }
+
+    const recipeDoc = doc(db, "recipes", recipe.id);
+    try {
+      await updateDoc(recipeDoc, { slowCooker: !recipe.slowCooker });
+
+      getRecipeList();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const deleteRecipe = async (id: string) => {
     if (!passwordCheck()) {
       return;
@@ -157,6 +172,7 @@ const RecipeList: React.FC = () => {
                     recipeData={recipe}
                     deleteRecipe={() => deleteRecipe(recipe.id)}
                     updateRecipeFavourite={() => updateFavourite(recipe)}
+                    updateSlowCooker={() => updateSlowCooker(recipe)}
                     imgSrc={recipeImageSrc}
                   />
                 </Col>

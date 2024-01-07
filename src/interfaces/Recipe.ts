@@ -7,5 +7,6 @@ export interface IRecipe {
     prepareTime: number,
     cookedNumber: number,
     isFavourite: boolean,
-    ingredients: string[]
+    ingredients: string[],
+    slowCooker: boolean
 }
